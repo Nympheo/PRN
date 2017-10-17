@@ -1,0 +1,27 @@
+{
+  "name": "polyclinic-report-network",
+  "version": "1.0.0",
+  "description": "diploma6",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nympheo/polyclinic-report-network.git"
+  },
+  "keywords": [
+    "healthcare"
+  ],
+  "author": "Nympheo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nympheo/polyclinic-report-network/issues"
+  },
+  "homepage": "https://github.com/Nympheo/polyclinic-report-network#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1"
+  }
+}

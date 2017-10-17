@@ -1,4 +1,11 @@
 Polyclinic Report Network
 ---
 
-Welcome.
+Welcome
+
+Setup
+---
+
+```
+npm install
+```

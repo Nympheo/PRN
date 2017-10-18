@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Counter from './Counter';
+import Enterscreen from './Enterscreen';
 
-import './style.sass';
+import './css/Logstyle.sass';
 
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
-    React.createElement(Counter),
+    React.createElement(Enterscreen),
     document.getElementById('mount')
   );
 });

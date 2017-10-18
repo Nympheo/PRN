@@ -23,4 +23,4 @@ class Counter extends React.Component {
     );
   }
 }
-expor
+export default Counter;

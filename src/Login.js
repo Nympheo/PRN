@@ -11,7 +11,7 @@ class Login extends React.Component {
     };
   }
 
-  signUp() {
+  signUp () {
     console.log('signUp');
     console.log('this.state', this.state);
 

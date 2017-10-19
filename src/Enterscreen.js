@@ -12,14 +12,18 @@ class Enterscreen extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    this.setState({nextScreen: [<Login/>]});
+  }
+
+  componentWillUnmount() {
 
   }
 
   render() {
     return (
       <div>
-        <Login/>
+        {this.state.nextScreen.shift()}
       </div>
     )
   }

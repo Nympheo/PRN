@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Enterscreen from './Enterscreen';
 
-import './css/Logstyle.sass';
+import './css/Style.sass';
 
 
 document.addEventListener('DOMContentLoaded', function() {

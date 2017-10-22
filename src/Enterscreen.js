@@ -24,6 +24,9 @@ class Enterscreen extends React.Component {
     return (
       <div>
         {this.state.nextScreen.shift()}
+        <div>
+          <span>Регистрация</span>
+        </div>
       </div>
     )
   }

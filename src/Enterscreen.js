@@ -1,32 +1,32 @@
 import React from 'react';
 import Login from './Login';
+import Register from './Register';
 
-/**
- * A counter button: tap the button to increase the count.
- */
+
+
 class Enterscreen extends React.Component {
   constructor() {
     super();
+    this.swapHandler = this.swapHandler.bind(this);
     this.state = {
-      nextScreen: [],
+      isLogged: false
     };
   }
 
-  componentDidMount() {
-    this.setState({nextScreen: [<Login/>]});
-  }
-
-  componentWillUnmount() {
-
+  swapHandler() {
+    this.setState(prevState => ({
+      isLogged: !prevState.isLogged
+    }));
   }
 
   render() {
     return (
-      <div>
-        {this.state.nextScreen.shift()}
-        <div>
-          <span>Регистрация</span>
-        </div>
+      <div className='enterscreen-wrap'>
+        {this.state.isLogged ? <Register/> : <Login/>}
+        <hr/>
+        {this.state.isLogged ?
+          <span onClick={this.swapHandler}>уже зарегистрированы?</span>
+          : <span onClick={this.swapHandler}>регистрация</span>}
       </div>
     )
   }

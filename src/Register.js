@@ -13,10 +13,18 @@ class Register extends React.Component {
     };
   }
 
-  signIn () {
-    console.log('signIn');
-    console.log('this.state', this.state);
-
+  signIn() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/registration", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    };
+    let dataSend = JSON.stringify(this.state);
+    console.log(dataSend);
+    xhr.send(dataSend);
   }
 
   render() {

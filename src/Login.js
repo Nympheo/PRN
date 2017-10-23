@@ -11,10 +11,18 @@ class Login extends React.Component {
     };
   }
 
-  signUp () {
-    console.log('signUp');
-    console.log('this.state', this.state);
-
+  signUp() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/login", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    };
+    let dataSend = JSON.stringify(this.state);
+    console.log(dataSend);
+    xhr.send(dataSend);
   }
 
   render() {

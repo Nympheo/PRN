@@ -8,6 +8,7 @@ class Enterscreen extends React.Component {
   constructor() {
     super();
     this.swapHandler = this.swapHandler.bind(this);
+    this.forgetPass = this.forgetPass.bind(this);
     this.state = {
       isLogged: false
     };
@@ -19,6 +20,10 @@ class Enterscreen extends React.Component {
     }));
   }
 
+  forgetPass() {
+    console.log('forget');
+  }
+
   render() {
     return (
       <div className='enterscreen-wrap'>
@@ -26,7 +31,10 @@ class Enterscreen extends React.Component {
         <hr/>
         {this.state.isLogged ?
           <span onClick={this.swapHandler}>уже зарегистрированы?</span>
-          : <span onClick={this.swapHandler}>регистрация</span>}
+          : <div>
+              <span onClick={this.swapHandler}>регистрация</span>
+              <span onClick={this.forgetPass}>забыли пароль?</span>
+            </div> }
       </div>
     )
   }

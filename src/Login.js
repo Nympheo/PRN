@@ -17,11 +17,10 @@ class Login extends React.Component {
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText);
+            alert(xhr.responseText);
         }
     };
     let dataSend = JSON.stringify(this.state);
-    console.log(dataSend);
     xhr.send(dataSend);
   }
 
@@ -38,7 +37,7 @@ class Login extends React.Component {
           />
           <input
             className='form-control'
-            type='text'
+            type='password'
             placeholder='пароль'
             onChange={event => this.setState({password: event.target.value})}
           />

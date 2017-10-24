@@ -23,30 +23,52 @@ app.use(bodyParser.json());
 
 
 /*   REQUEST HANDLERS   */
-const userDataBase = {};
+const userDataBase = {dima:{nickName: 'dima',
+                            email: 'kumastakurt@mail.ru',
+                            password: 'Polypass1',
+                            repPassword: 'Polypass1',
+                            polyclinic: '22'
+}};
 
 app.post('/login', (req, res) => {
-  for(user in userDataBase){
-    if(userDataBase[user].email == req.body.email){
-      res.send(`welcome ${userDataBase[user].nickName}`);
-    }
-  }
-  res.send('user don`t exist');
+  res.send(checkUser(req.body));
+  console.log(userDataBase);
 });
 
 app.post('/registration', (req, res) => {
   if(userDataBase[req.body.nickName]){
-    res.send('already exist');
+    res.send('Пользователь уже существует');
   } else {
     userDataBase[req.body.nickName] = req.body;
-    res.send('registration succesful');
+    res.send('Успешная регистрация');
   }
   console.log(userDataBase);
 });
 
 
-const server = app.listen(3341, function() {
+const server = app.listen(3347, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+function checkUser(body) {
+  let answer = '';
+  for(user in userDataBase){
+    if(userDataBase[user].email == body.email){
+      if(userDataBase[user].password != body.password){
+        answer = 'Неверный пароль';
+        break;
+      }
+      if(userDataBase[user].polyclinic != body.polyclinic){
+        answer = 'Неверный номер поликлиники';
+        break;
+      }
+      answer = `Добро пожаловать ${userDataBase[user].nickName}`
+      break;
+    }
+    answer = 'Неверный адрес электронной почты';
+  }
+  return answer;
+}

@@ -3,6 +3,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 const app = express();
 
 const compiler = webpack(webpackConfig);
@@ -45,8 +46,49 @@ app.post('/registration', (req, res) => {
   console.log(userDataBase);
 });
 
+app.post('/recover', (req, res) => {
+  let exist = false;
+  for(user in userDataBase){
+    if(userDataBase[user].email == req.body.recoverMail){
+        exist = true;
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          secure: false,
+          port: 25,
+          auth: {
+            user: 'synthetic.probe@gmail.com',
+            pass: 'GooglePass1234'
+          },
+          tls: {
+            rejectUnauthorized: false
+          }
+        });
 
-const server = app.listen(3347, function() {
+        let HelperOptions = {
+          from: 'сервис восстановления паролей',
+          to: userDataBase[user].email,
+          subject: 'восстановление пароля Полистат',
+          text: `Ваш пароль: ${userDataBase[user].password}`
+        }
+
+        transporter.sendMail(HelperOptions, (error, info) => {
+          if(error){
+            res.send(error);
+            return;
+          }
+          res.send('пароль выслан на ваш почтовый ящик');
+        });
+    }
+  }
+  if(!exist){
+    res.send('пользователя с таким почтовым ящиком не существует');
+  }
+});
+
+
+
+
+const server = app.listen(3005, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

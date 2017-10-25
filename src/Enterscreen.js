@@ -21,7 +21,22 @@ class Enterscreen extends React.Component {
   }
 
   forgetPass() {
-    console.log('forget');
+    let mail = prompt('введите адрес электронной почты');
+    let regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(!mail.match(regmail)){
+      alert('проверьте правильность ввода');
+    }else{
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/recover", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            alert(xhr.responseText);
+          }
+      };
+      let dataSend = JSON.stringify({recoverMail: mail});
+      xhr.send(dataSend);
+    }
   }
 
   render() {
@@ -31,7 +46,7 @@ class Enterscreen extends React.Component {
         <hr/>
         {this.state.isLogged ?
           <span onClick={this.swapHandler}>уже зарегистрированы?</span>
-          : <div>
+          : <div className='footer-wrap'>
               <span onClick={this.swapHandler}>регистрация</span>
               <span onClick={this.forgetPass}>забыли пароль?</span>
             </div> }

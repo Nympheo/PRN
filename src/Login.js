@@ -4,6 +4,7 @@ import React from 'react';
 class Login extends React.Component {
   constructor() {
     super();
+    this.logAccess = this.logAccess.bind(this);
     this.state = {
       email: '',
       password: '',
@@ -11,17 +12,22 @@ class Login extends React.Component {
     };
   }
 
-  signUp() {
+  signUp(fun) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/login", true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             alert(xhr.responseText);
+            fun();
         }
     };
     let dataSend = JSON.stringify(this.state);
     xhr.send(dataSend);
+  }
+
+  logAccess() {
+    this.props.access();
   }
 
   render() {
@@ -50,7 +56,7 @@ class Login extends React.Component {
           <button
             className='btn log-button'
             type='button'
-            onClick={() => this.signUp()}>
+            onClick={() => this.signUp(this.logAccess)}>
               ВОЙТИ
           </button>
         </div>

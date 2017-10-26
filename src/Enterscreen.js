@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import Register from './Register';
+import Workspace from './Workspace';
 
 
 
@@ -9,14 +10,22 @@ class Enterscreen extends React.Component {
     super();
     this.swapHandler = this.swapHandler.bind(this);
     this.forgetPass = this.forgetPass.bind(this);
+    this.access = this.access.bind(this);
     this.state = {
-      isLogged: false
+      isLogged: false,
+      approved: false
     };
   }
 
   swapHandler() {
     this.setState(prevState => ({
       isLogged: !prevState.isLogged
+    }));
+  }
+
+  access() {
+    this.setState(prevState => ({
+      approved: true
     }));
   }
 
@@ -41,15 +50,19 @@ class Enterscreen extends React.Component {
 
   render() {
     return (
-      <div className='enterscreen-wrap'>
-        {this.state.isLogged ? <Register/> : <Login/>}
-        <hr/>
-        {this.state.isLogged ?
-          <span onClick={this.swapHandler}>уже зарегистрированы?</span>
-          : <div className='footer-wrap'>
-              <span onClick={this.swapHandler}>регистрация</span>
-              <span onClick={this.forgetPass}>забыли пароль?</span>
-            </div> }
+       <div>
+        {this.state.approved ? <Workspace/>
+          : <div className='enterscreen-wrap'>
+              {this.state.isLogged ? <Register/> : <Login access={this.access}/>}
+              <hr/>
+              {this.state.isLogged ?
+                <span onClick={this.swapHandler}>уже зарегистрированы?</span>
+                : <div className='footer-wrap'>
+                    <span onClick={this.swapHandler}>регистрация</span>
+                    <span onClick={this.forgetPass}>забыли пароль?</span>
+                  </div> }
+            </div>
+        }
       </div>
     )
   }

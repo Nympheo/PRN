@@ -13,7 +13,9 @@ class Workspace extends React.Component {
 
   render() {
     return (
-      <div>Workspace</div>
+      <div>
+        Workspace
+      </div>
     )
   }
 }

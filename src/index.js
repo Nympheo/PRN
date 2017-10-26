@@ -4,6 +4,8 @@ import Enterscreen from './Enterscreen';
 
 import './css/Style.sass';
 import './css/Logstyle.sass';
+import './css/Userstyle.sass';
+import './css/Workstyle.sass';
 
 
 document.addEventListener('DOMContentLoaded', function() {

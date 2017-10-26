@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import Register from './Register';
-import Workspace from './Workspace';
+import Logedscreen from './Logedscreen';
 
 
 
@@ -13,7 +13,7 @@ class Enterscreen extends React.Component {
     this.access = this.access.bind(this);
     this.state = {
       isLogged: false,
-      approved: false
+      approved: true
     };
   }
 
@@ -50,8 +50,8 @@ class Enterscreen extends React.Component {
 
   render() {
     return (
-       <div>
-        {this.state.approved ? <Workspace/>
+       <div className='enterscreen-full'>
+        {this.state.approved ? <Logedscreen/>
           : <div className='enterscreen-wrap'>
               {this.state.isLogged ? <Register/> : <Login access={this.access}/>}
               <hr/>

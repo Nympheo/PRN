@@ -24,6 +24,7 @@ class Register extends React.Component {
                    xhr.setRequestHeader("Content-type", "application/json");
                    xhr.onreadystatechange = function () {
                        if (xhr.readyState === 4 && xhr.status === 200) {
+                           alert(xhr.responseText);
                            let ev = new Event('click', {bubbles: true});
                            let el = document.getElementsByTagName('span')[0];
                            el.dispatchEvent(ev);

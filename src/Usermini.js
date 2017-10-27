@@ -10,10 +10,9 @@ class Usermini extends React.Component {
   }
 
 
-
   render() {
     return (
-        <div className='user-list'>
+       <div className='user-list' onClick={this.props.onClick}>
           <div className='ava-list'>
             <img src='/img/user.png'></img>
           </div>

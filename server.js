@@ -29,7 +29,26 @@ const userDataBase = {dima:{nickName: 'dima',
                             password: 'Polypass1',
                             repPassword: 'Polypass1',
                             polyclinic: '22'
-}};
+                          },
+                      anton:{
+                            email: 'anton@mail.ru',
+                            password: 'Anton1',
+                            repPassword: 'Anton1',
+                            polyclinic: '23'
+                      },
+                      vadim:{
+                            email: 'vadim@mail.ru',
+                            password: 'Vadim1',
+                            repPassword: 'Vadim1',
+                            polyclinic: '24'
+                      },
+                      valera:{
+                            email: 'valera@mail.ru',
+                            password: 'Valera1',
+                            repPassword: 'Valera1',
+                            polyclinic: '24'
+                      },
+};
 
 app.post('/login', (req, res) => {
   res.send(checkUser(req.body));
@@ -88,7 +107,7 @@ app.post('/recover', (req, res) => {
 
 
 
-const server = app.listen(3001, function() {
+const server = app.listen(3003, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

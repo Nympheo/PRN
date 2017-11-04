@@ -13,9 +13,9 @@ class Enterscreen extends React.Component {
     this.access = this.access.bind(this);
     this.state = {
       isLogged: false,
-      approved: false,
-      user: '',
-      userBase: {}
+      approved: true,                           // entered for development
+      user: 'dima',                             // entered for development
+      userBase: {dima:{prof:'хирург'},anton:{prof:'лор'}} // entered for development
     };
   }
 
@@ -55,7 +55,7 @@ class Enterscreen extends React.Component {
   render() {
     return (
        <div className='enterscreen-full'>
-        {this.state.approved ? <Logedscreen user={this.state.user}/>
+        {this.state.approved ? <Logedscreen user={this.state.user} users={this.state.userBase}/>
           : <div className='enterscreen-wrap'>
               {this.state.isLogged ? <Register/> : <Login access={this.access}/>}
               <hr/>

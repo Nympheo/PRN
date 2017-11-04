@@ -8,47 +8,63 @@ import Workspace from './Workspace';
 class Loggedscreen extends React.Component {
   constructor() {
     super();
+    this.enterRoom = this.enterRoom.bind(this);
     this.state = {
       entered: false,
-      // polyUsers: {}
+      polyUsers: {},
+      polyUsersRender: [],
+      userRoom: '',
+      host: false
     };
   }
 
-  // componentDidMount() {
-  //   let that = this;
-  //   let xhr = new XMLHttpRequest();
-  //   xhr.open("POST", "/users", true);
-  //   xhr.setRequestHeader("Content-type", "application/json");
-  //   xhr.onreadystatechange = function () {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //           let resp = JSON.parse(xhr.responseText);
-  //           that.setState({polyUsers: resp});
-  //       }
-  //   };
-  //   let dataSend = JSON.stringify({user: this.props.user});
-  //   xhr.send(dataSend);
-  // }
-
-  enterRoom() {
+  componentWillMount() {
+    let usersForRender = [];
+    for(let usr in this.props.users){
+      usersForRender.push(<Usermini onClick = {this.enterRoom}
+                                    user = {'' + usr}
+                                    prof = {this.props.users[usr].prof}
+                                    key = {usr}
+                          />);
+    }
     this.setState(prevState => ({
-      entered: !prevState.entered
+      polyUsers: this.props.users,
+      polyUsersRender: usersForRender
     }));
+  }
+
+  enterRoom(user) {
+    if(user == this.props.user){
+      this.setState(prevState => ({
+        entered: !prevState.entered,
+        userRoom: user,
+        host: true
+      }));
+    }else {
+      this.setState(prevState => ({
+        entered: !prevState.entered,
+        userRoom: user,
+        host: false
+      }));
+    }
   }
 
 
   render() {
     return (
       <div className='logged-screen'>
-        {this.state.entered ? <Userroom/>
+        {this.state.entered ? <Userroom user={this.state.userRoom}
+                                        access={this.state.access}
+                              />
         : <div className='work'>
             <div className='users-wrap'>
-               <Usermini onClick = {this.enterRoom}
-                         user = {this.props.user}
-                        //  prof = {this.state.polyUsers[this.props.user].prof}
-                         />
-               <Usermini onClick={this.enterRoom}/>
-               <Usermini onClick={this.enterRoom}/>
-               <Usermini onClick={this.enterRoom}/>
+          {
+             // <Usermini onClick = {this.enterRoom}
+            //           user = {this.props.user}
+            //           prof = {this.state.polyUsers[this.props.user].prof}
+            //           />
+          }
+              {this.state.polyUsersRender}
              </div>
              <div className='workspace-wrap'>
                <Workspace/>

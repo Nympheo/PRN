@@ -17,8 +17,8 @@ class Usermini extends React.Component {
             <img src='/img/user.png'></img>
           </div>
           <div className='user-info'>
-            <h4>Username</h4>
-            <p>proffession</p>
+            <h4>{this.props.user}</h4>
+            <p>{this.props.prof}</p>
             <span>status</span>
           </div>
         </div>

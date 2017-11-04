@@ -8,11 +8,26 @@ import Workspace from './Workspace';
 class Loggedscreen extends React.Component {
   constructor() {
     super();
-    this.enterRoom = this.enterRoom.bind(this);
     this.state = {
-      entered: false
+      entered: false,
+      // polyUsers: {}
     };
   }
+
+  // componentDidMount() {
+  //   let that = this;
+  //   let xhr = new XMLHttpRequest();
+  //   xhr.open("POST", "/users", true);
+  //   xhr.setRequestHeader("Content-type", "application/json");
+  //   xhr.onreadystatechange = function () {
+  //       if (xhr.readyState === 4 && xhr.status === 200) {
+  //           let resp = JSON.parse(xhr.responseText);
+  //           that.setState({polyUsers: resp});
+  //       }
+  //   };
+  //   let dataSend = JSON.stringify({user: this.props.user});
+  //   xhr.send(dataSend);
+  // }
 
   enterRoom() {
     this.setState(prevState => ({
@@ -27,7 +42,10 @@ class Loggedscreen extends React.Component {
         {this.state.entered ? <Userroom/>
         : <div className='work'>
             <div className='users-wrap'>
-               <Usermini onClick={this.enterRoom}/>
+               <Usermini onClick = {this.enterRoom}
+                         user = {this.props.user}
+                        //  prof = {this.state.polyUsers[this.props.user].prof}
+                         />
                <Usermini onClick={this.enterRoom}/>
                <Usermini onClick={this.enterRoom}/>
                <Usermini onClick={this.enterRoom}/>

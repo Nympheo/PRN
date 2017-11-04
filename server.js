@@ -23,36 +23,46 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(bodyParser.json());
 
 
-/*   REQUEST HANDLERS   */
-const userDataBase = {dima:{nickName: 'dima',
+
+const userDataBase = {dima:{
                             email: 'kumastakurt@mail.ru',
                             password: 'Polypass1',
                             repPassword: 'Polypass1',
-                            polyclinic: '22'
+                            polyclinic: '22',
+                            prof: '',
+                            bio: ''
                           },
                       anton:{
                             email: 'anton@mail.ru',
                             password: 'Anton1',
                             repPassword: 'Anton1',
-                            polyclinic: '23'
+                            polyclinic: '22',
+                            prof: '',
+                            bio: ''
                       },
                       vadim:{
                             email: 'vadim@mail.ru',
                             password: 'Vadim1',
                             repPassword: 'Vadim1',
-                            polyclinic: '24'
+                            polyclinic: '24',
+                            prof: '',
+                            bio: ''
                       },
                       valera:{
                             email: 'valera@mail.ru',
                             password: 'Valera1',
                             repPassword: 'Valera1',
-                            polyclinic: '24'
+                            polyclinic: '24',
+                            prof: '',
+                            bio: ''
                       },
 };
 
+
+/*   REQUEST HANDLERS   */
+
 app.post('/login', (req, res) => {
   res.send(checkUser(req.body));
-  console.log(userDataBase);
 });
 
 app.post('/registration', (req, res) => {
@@ -63,6 +73,22 @@ app.post('/registration', (req, res) => {
     res.send('Успешная регистрация');
   }
   console.log(userDataBase);
+});
+
+app.post('/users', (req, res) => {
+  let poly = userDataBase[req.body.user].polyclinic;
+  if(poly){
+    let respBase = {};
+    for(u in userDataBase){
+      if(userDataBase[u].polyclinic == poly){
+        respBase[u] = {prof: userDataBase[u].prof};
+      }
+    }
+    let dataSend = JSON.stringify(respBase);
+    res.send(dataSend);
+  }else{
+    res.send('this polyclinic have not active users');
+  }
 });
 
 app.post('/recover', (req, res) => {
@@ -107,7 +133,7 @@ app.post('/recover', (req, res) => {
 
 
 
-const server = app.listen(3003, function() {
+const server = app.listen(3008, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
@@ -126,7 +152,7 @@ function checkUser(body) {
         answer = 'Неверный номер поликлиники';
         break;
       }
-      answer = `Добро пожаловать ${userDataBase[user].nickName}`
+      answer = `Добро пожаловать! ${user}`
       break;
     }
     answer = 'Неверный адрес электронной почты';

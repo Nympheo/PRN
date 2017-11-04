@@ -13,7 +13,9 @@ class Enterscreen extends React.Component {
     this.access = this.access.bind(this);
     this.state = {
       isLogged: false,
-      approved: true
+      approved: false,
+      user: '',
+      userBase: {}
     };
   }
 
@@ -23,9 +25,11 @@ class Enterscreen extends React.Component {
     }));
   }
 
-  access() {
+  access(u, b) {
     this.setState(prevState => ({
-      approved: true
+      approved: true,
+      user: u,
+      userBase: b
     }));
   }
 
@@ -51,7 +55,7 @@ class Enterscreen extends React.Component {
   render() {
     return (
        <div className='enterscreen-full'>
-        {this.state.approved ? <Logedscreen/>
+        {this.state.approved ? <Logedscreen user={this.state.user}/>
           : <div className='enterscreen-wrap'>
               {this.state.isLogged ? <Register/> : <Login access={this.access}/>}
               <hr/>

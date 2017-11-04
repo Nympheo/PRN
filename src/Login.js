@@ -13,21 +13,43 @@ class Login extends React.Component {
   }
 
   signUp(fun) {
+    let that = this;
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/login", true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);
-            fun();
+            let resp = xhr.responseText;
+            if(resp.includes('!')){
+              let user = resp.slice(18);
+              alert(resp);
+              that.getPolyBase(user, fun);
+            }else{
+              alert(resp);
+            }
         }
     };
     let dataSend = JSON.stringify(this.state);
     xhr.send(dataSend);
   }
 
-  logAccess() {
-    this.props.access();
+  getPolyBase(u,f){
+      let that = this;
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/users", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              let base = JSON.parse(xhr.responseText);
+              f(u, base);
+          }
+      };
+      let dataSend = JSON.stringify({user: u});
+      xhr.send(dataSend);
+  }
+
+  logAccess(u, b) {
+    this.props.access(u, b);
   }
 
   render() {

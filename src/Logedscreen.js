@@ -54,7 +54,7 @@ class Loggedscreen extends React.Component {
     return (
       <div className='logged-screen'>
         {this.state.entered ? <Userroom user={this.state.userRoom}
-                                        access={this.state.access}
+                                        host={this.state.host}
                               />
         : <div className='work'>
             <div className='users-wrap'>

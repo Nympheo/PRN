@@ -6,14 +6,14 @@ class Userroom extends React.Component {
     super();
     this.state = {
       user: '',
-      access: false
+      host: false
     };
   }
 
   componentWillMount() {
     this.setState(prevState => ({
       user: this.props.user,
-      access: this.props.access
+      host: this.props.host
     }));
   }
 
@@ -23,7 +23,7 @@ class Userroom extends React.Component {
         <div className='aside'>
           <img className='ava' src='/img/user.png'></img>
           <h4>{this.state.user}</h4>
-          <h6>proffession</h6>
+          <h5>proffession</h5>
           <p>bio bio bio bio bio bio bio bio bio bio bio bio
               bio bio bio bio bio bio bio bio bio bio bio bio
               bio bio bio bio bio bio bio bio bio bio bio bio
@@ -34,7 +34,7 @@ class Userroom extends React.Component {
 
         </div>
         <div>
-          {this.state.access ? <button>редактировать</button> : <button>выйти</button>}
+          {this.state.host ? <button>редактировать</button> : <button>выйти</button>}
         </div>
       </div>
     )

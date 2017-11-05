@@ -5,17 +5,6 @@ class Usermini extends React.Component {
   constructor() {
     super();
     this.click = this.click.bind(this);
-    this.state = {
-      user: '',
-      prof: ''
-    };
-  }
-
-  componentWillMount() {
-    this.setState(prevState => ({
-      user: this.props.user,
-      prof: this.props.prof
-    }));
   }
 
   click() {

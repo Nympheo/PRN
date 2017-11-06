@@ -20,7 +20,7 @@ class Usermini extends React.Component {
           <div className='user-info'>
             <h4>{this.props.user}</h4>
             <p>{this.props.prof}</p>
-            <p>{this.props.online + ''}</p>
+            <img className='ava' src={this.props.online ? '/img/on.png' : '/img/off.png'}></img>
           </div>
         </div>
     )

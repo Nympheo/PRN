@@ -20,7 +20,7 @@ class Userroom extends React.Component {
   render() {
     return (
       <div>
-        <div className='aside'>
+        <div className='user-data'>
           <img className='ava' src='/img/user.png'></img>
           <h4>{this.state.user}</h4>
           <h5>proffession</h5>

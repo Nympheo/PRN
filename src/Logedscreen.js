@@ -19,15 +19,30 @@ class Loggedscreen extends React.Component {
   }
 
   componentWillMount() {
-    let usersForRender = this.props.users.map((el) =>
+    window.addEventListener("beforeunload", function (e) {
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/offline", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      let dataSend = JSON.stringify({name: this.props.user});
+      xhr.send(dataSend);
+    });
+    let sortedUsers = this.props.users.sort(compare);
+    let current;
+    sortedUsers.map(e => {
+      if(e.name == this.props.user)current = e;
+    });
+    sortedUsers = sortedUsers.filter(e => e.name != current.name);
+    sortedUsers.unshift(current);
+    let usersForRender = sortedUsers.map((el) =>
                           <Usermini onClick = {this.enterRoom}
                                     user = {el.name}
                                     prof = {el.prof}
+                                    online = {el.online}
                                     key = {el.name}
                           />
     );
     this.setState(prevState => ({
-      polyUsers: this.props.users,
+      polyUsers: sortedUsers,
       polyUsersRender: usersForRender
     }));
   }
@@ -66,6 +81,14 @@ class Loggedscreen extends React.Component {
       </div>
     )
   }
+}
+
+function compare(a,b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
 }
 
 export default Loggedscreen;

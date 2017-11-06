@@ -29,6 +29,7 @@ const userDataBase = [{
                             password: 'Polypass1',
                             name: 'Журавкин Дмитрий',
                             polyclinic: '22',
+                            online: false,
                             prof: 'хирург',
                             bio: ''
                       },
@@ -37,6 +38,7 @@ const userDataBase = [{
                             password: 'Anton1',
                             name: 'Иванов Антон',
                             polyclinic: '22',
+                            online: false,
                             prof: 'лор',
                             bio: ''
                       },
@@ -44,7 +46,8 @@ const userDataBase = [{
                             email: 'vadim@mail.ru',
                             password: 'Vadim1',
                             name: 'Орехов Вадим',
-                            polyclinic: '24',
+                            polyclinic: '22',
+                            online: false,
                             prof: '',
                             bio: ''
                       },
@@ -52,7 +55,8 @@ const userDataBase = [{
                             email: 'valera@mail.ru',
                             password: 'Valera1',
                             name: 'Кульбицкий Валера',
-                            polyclinic: '24',
+                            polyclinic: '22',
+                            online: false,
                             prof: '',
                             bio: ''
                       },
@@ -94,7 +98,9 @@ app.post('/users', (req, res) => {
   if(poly){
     let respBase = [];
     userDataBase.forEach(el => {
-      if(el.polyclinic == poly) respBase.push({name:el.name, prof:el.prof});
+      if(el.polyclinic == poly) {
+        respBase.push({name:el.name, prof:el.prof, online:el.online});
+      }
     });
     let dataSend = JSON.stringify(respBase);
     res.send(dataSend);
@@ -144,9 +150,14 @@ app.post('/recover', (req, res) => {
   }
 });
 
+app.post('/offline', (req, res) => {
+  userDataBase.map(e => {if(e.name == req.body.user) e.online = false});
+  res.send('done');
+});
 
 
-const server = app.listen(3006, function() {
+
+const server = app.listen(3008, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
@@ -167,6 +178,7 @@ function checkUser(body) {
         return;
       }
       answer = `Добро пожаловать! ${el.name}`
+      el.online = true;
       return;
     }
     answer = 'Неверный адрес электронной почты';

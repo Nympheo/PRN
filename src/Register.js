@@ -35,6 +35,7 @@ class Register extends React.Component {
                                                password: this.state.password,
                                                name: this.state.nickName,
                                                polyclinic: this.state.polyclinic,
+                                               online: false,
                                                prof: '',
                                                bio: ''
                                          });

@@ -13,12 +13,21 @@ class Enterscreen extends React.Component {
     this.access = this.access.bind(this);
     this.state = {
       isLogged: false,
-      approved: true,                           // entered for development
-      user: 'Журавкин Дмитрий',                        // entered for development
-      userBase: [{name: "Журавкин Дмитрий", prof: "хирург"},
-                 {name: "Иванов Антон", prof: "лор"}] // entered for development
+      approved: false,                           // entered for development
+      user: '',                                 // dev
+      userBase: []
     };
   }
+
+  // userBase: [{name: "Журавкин Дмитрий", prof: "хирург", online: true}, // dev
+  //            {name: "Зорина Светлана", prof: "", online: true},
+  //            {name: "Юрко Зинаида", prof: "", online: true},
+  //            {name: "Иванов Антон", prof: "лор", online: false},
+  //            {name: "Орехов Вадим", prof: "", online: true},
+  //            {name: "Кульбицкий Валера", prof: "", online: false},
+  //            {name: "Амосов Андрей", prof: "", online: true},
+  //            {name: "Андреенко Виктор", prof: "", online: false},
+  //            {name: "Орехова Евгения", prof: "", online: true}]
 
   swapHandler() {
     this.setState(prevState => ({

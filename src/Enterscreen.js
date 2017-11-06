@@ -14,8 +14,9 @@ class Enterscreen extends React.Component {
     this.state = {
       isLogged: false,
       approved: true,                           // entered for development
-      user: 'dima',                             // entered for development
-      userBase: {dima:{prof:'хирург'},anton:{prof:'лор'}} // entered for development
+      user: 'Журавкин Дмитрий',                        // entered for development
+      userBase: [{name: "Журавкин Дмитрий", prof: "хирург"},
+                 {name: "Иванов Антон", prof: "лор"}] // entered for development
     };
   }
 
@@ -35,21 +36,23 @@ class Enterscreen extends React.Component {
 
   forgetPass() {
     let mail = prompt('введите адрес электронной почты');
-    let regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(!mail.match(regmail)){
-      alert('проверьте правильность ввода');
-    }else{
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", "/recover", true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            alert(xhr.responseText);
-          }
-      };
+    if(mail){
+      let regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if(!mail.match(regmail)){
+        alert('проверьте правильность ввода');
+      }else{
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/recover", true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              alert(xhr.responseText);
+            }
+        };
       let dataSend = JSON.stringify({recoverMail: mail});
       xhr.send(dataSend);
     }
+  }
   }
 
   render() {

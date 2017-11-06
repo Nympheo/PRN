@@ -30,7 +30,14 @@ class Register extends React.Component {
                            el.dispatchEvent(ev);
                        }
                    };
-                   let dataSend = JSON.stringify(this.state);
+                   let dataSend = JSON.stringify({
+                                               email: this.state.email,
+                                               password: this.state.password,
+                                               name: this.state.nickName,
+                                               polyclinic: this.state.polyclinic,
+                                               prof: '',
+                                               bio: ''
+                                         });
                    xhr.send(dataSend);
                  }
   }
@@ -43,7 +50,7 @@ class Register extends React.Component {
           <input
             className='form-control'
             type='text'
-            placeholder='ваше имя'
+            placeholder='ваши фамилия и имя'
             onChange={event => this.setState({nickName: event.target.value})}
           />
           <input
@@ -83,16 +90,17 @@ class Register extends React.Component {
 }
 
 function checkForm(uname, email, pass, reppass, polyclinic) {
-    var reguser = /^[A-Za-z]+$/;
+    var reguser = /([А-ЯЁ][а-яё]+[\-\s]?){2,}/;
     if(!uname.match(reguser))
       {
-        alert('Имя должно содержать только буквы из алфавита');
+        alert(`Фамилия и имя должны содержать только буквы русского алфавита,
+              начинаться с большой буквы и отделяться пробелом`);
         return false;
       }
     var regmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(!email.match(regmail))
       {
-        alert('Вы ввели не корректный адресс электронной почты');
+        alert('Вы ввели не корректный адрес электронной почты');
         return false;
       }
     var regpass = /^(?=.*[A-Z])(?!.*[!@#$&*\^%\*\.])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
@@ -104,7 +112,7 @@ function checkForm(uname, email, pass, reppass, polyclinic) {
               ~!@#$%^&*()_+`);
         return false;
       }
-    if(pass!=reppass)
+    if(pass != reppass)
       {
         alert(`Пароли не совпадают`);
         return false;

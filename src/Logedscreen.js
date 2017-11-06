@@ -19,14 +19,13 @@ class Loggedscreen extends React.Component {
   }
 
   componentWillMount() {
-    let usersForRender = [];
-    for(let usr in this.props.users){
-      usersForRender.push(<Usermini onClick = {this.enterRoom}
-                                    user = {'' + usr}
-                                    prof = {this.props.users[usr].prof}
-                                    key = {usr}
-                          />);
-    }
+    let usersForRender = this.props.users.map((el) =>
+                          <Usermini onClick = {this.enterRoom}
+                                    user = {el.name}
+                                    prof = {el.prof}
+                                    key = {el.name}
+                          />
+    );
     this.setState(prevState => ({
       polyUsers: this.props.users,
       polyUsersRender: usersForRender
@@ -58,12 +57,6 @@ class Loggedscreen extends React.Component {
                               />
         : <div className='work'>
             <div className='users-wrap'>
-          {
-             // <Usermini onClick = {this.enterRoom}
-            //           user = {this.props.user}
-            //           prof = {this.state.polyUsers[this.props.user].prof}
-            //           />
-          }
               {this.state.polyUsersRender}
              </div>
              <div className='workspace-wrap'>

@@ -27,25 +27,37 @@ class Loggedscreen extends React.Component {
       let dataSend = JSON.stringify({name: this.props.user});
       xhr.send(dataSend);
     });
-    let sortedUsers = this.props.users.sort(compare);
-    let current;
-    sortedUsers.map(e => {
-      if(e.name == this.props.user)current = e;
-    });
-    sortedUsers = sortedUsers.filter(e => e.name != current.name);
-    sortedUsers.unshift(current);
-    let usersForRender = sortedUsers.map((el) =>
-                          <Usermini onClick = {this.enterRoom}
-                                    user = {el.name}
-                                    prof = {el.prof}
-                                    online = {el.online}
-                                    key = {el.name}
-                          />
-    );
-    this.setState(prevState => ({
-      polyUsers: sortedUsers,
-      polyUsersRender: usersForRender
-    }));
+    //----------------------
+    let xhr = new XMLHttpRequest();
+    let that = this;
+    xhr.open("POST", "/users", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let base = JSON.parse(xhr.responseText);
+            let sortedUsers = base.sort(compare); //!!!!
+            let current;
+            sortedUsers.map(e => {
+              if(e.name == that.props.user) current = e;
+            });
+            sortedUsers = sortedUsers.filter(e => e.name != current.name);
+            sortedUsers.unshift(current);
+            let usersForRender = sortedUsers.map((el) =>
+                                  <Usermini onClick = {that.enterRoom}
+                                            user = {el.name}
+                                            prof = {el.prof}
+                                            online = {el.online}
+                                            key = {el.name}
+                                  />
+            );
+            that.setState(prevState => ({
+              polyUsers: sortedUsers,
+              polyUsersRender: usersForRender
+            }));
+        }
+    };
+    let dataSend = JSON.stringify({user: this.props.user});
+    xhr.send(dataSend);
   }
 
   enterRoom(user) {
@@ -65,7 +77,37 @@ class Loggedscreen extends React.Component {
   }
 
   toMainScreen() {
-    this.setState({entered: false});
+    let xhr = new XMLHttpRequest();
+    let that = this;
+    xhr.open("POST", "/users", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let base = JSON.parse(xhr.responseText);
+            let sortedUsers = base.sort(compare); //!!!!
+            let current;
+            sortedUsers.map(e => {
+              if(e.name == that.props.user) current = e;
+            });
+            sortedUsers = sortedUsers.filter(e => e.name != current.name);
+            sortedUsers.unshift(current);
+            let usersForRender = sortedUsers.map((el) =>
+                                  <Usermini onClick = {that.enterRoom}
+                                            user = {el.name}
+                                            prof = {el.prof}
+                                            online = {el.online}
+                                            key = {el.name}
+                                  />
+            );
+            that.setState(prevState => ({
+              polyUsers: sortedUsers,
+              polyUsersRender: usersForRender,
+              entered: false
+            }));
+        }
+    };
+    let dataSend = JSON.stringify({user: this.props.user});
+    xhr.send(dataSend);
   }
 
 

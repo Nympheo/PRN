@@ -132,6 +132,7 @@ app.post('/registration', (req, res) => {
     answer = 'Успешная регистрация';
   }
   res.send(answer);
+  console.log('userDataBase:');
   console.log(userDataBase);
 });
 
@@ -207,9 +208,25 @@ app.post('/userroom', (req, res) => {
   res.send(dataSend);
 });
 
+app.post('/addUserData', (req, res) => {
+  console.log(req.body);
+  console.log(req.body.name);
+  console.log(req.body.prof);
+  console.log(req.body.bio);
+  userDataBase.forEach(e => {
+    if(e.name == req.body.name){
+      e.prof = req.body.prof;
+      e.bio = req.body.bio;
+    }
+  });
+  res.send('done');
+  console.log('userDataBase:');
+  console.log(userDataBase);
+});
 
 
-const server = app.listen(3000, function() {
+
+const server = app.listen(3002, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

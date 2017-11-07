@@ -9,6 +9,7 @@ class Loggedscreen extends React.Component {
   constructor() {
     super();
     this.enterRoom = this.enterRoom.bind(this);
+    this.toMainScreen = this.toMainScreen.bind(this);
     this.state = {
       entered: false,
       polyUsers: {},
@@ -63,12 +64,17 @@ class Loggedscreen extends React.Component {
     }
   }
 
+  toMainScreen() {
+    this.setState({entered: false});
+  }
+
 
   render() {
     return (
       <div className='logged-screen'>
         {this.state.entered ? <Userroom user={this.state.userRoom}
                                         host={this.state.host}
+                                        back = {this.toMainScreen}
                               />
         : <div className='work'>
             <div className='users-wrap'>

@@ -18,11 +18,11 @@ class Usermini extends React.Component {
             <img src='/img/user.png'></img>
           </div>
           <div className='user-info'>
-            <h4>{this.props.user}</h4>
-            <p>{this.props.prof}</p>
-            <img className='ava' src={this.props.online ? '/img/on.png' : '/img/off.png'}></img>
+            <h5>{this.props.user}</h5>
+            <p>{this.props.prof ? this.props.prof : 'не заполнено'}</p>
           </div>
-        </div>
+          <img className='status' src={this.props.online ? '/img/on.png' : '/img/off.png'}></img>
+      </div>
     )
   }
 }

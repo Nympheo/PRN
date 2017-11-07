@@ -43,6 +43,24 @@ const userDataBase = [{
                             bio: ''
                       },
                       {
+                            email: 'sveta@mail.ru',
+                            password: 'Vadim1',
+                            name: 'Зорина Светлана',
+                            polyclinic: '22',
+                            online: false,
+                            prof: '',
+                            bio: ''
+                      },
+                      {
+                            email: 'zina@mail.ru',
+                            password: 'Vadim1',
+                            name: 'Юрко Зинаида',
+                            polyclinic: '22',
+                            online: false,
+                            prof: '',
+                            bio: ''
+                      },
+                      {
                             email: 'vadim@mail.ru',
                             password: 'Vadim1',
                             name: 'Орехов Вадим',
@@ -53,13 +71,41 @@ const userDataBase = [{
                       },
                       {
                             email: 'valera@mail.ru',
-                            password: 'Valera1',
+                            password: 'Vadim1',
                             name: 'Кульбицкий Валера',
                             polyclinic: '22',
                             online: false,
                             prof: '',
                             bio: ''
                       },
+                      {
+                            email: 'amos@mail.ru',
+                            password: 'Vadim1',
+                            name: 'Амосов Андрей',
+                            polyclinic: '22',
+                            online: false,
+                            prof: '',
+                            bio: ''
+                      },
+                      {
+                            email: 'vitja@mail.ru',
+                            password: 'Vadim1',
+                            name: 'Андреенко Виктор',
+                            polyclinic: '22',
+                            online: false,
+                            prof: '',
+                            bio: ''
+                      },
+                      {
+                            email: 'ehya@mail.ru',
+                            password: 'Vadim1',
+                            name: 'Орехова Евгения',
+                            polyclinic: '22',
+                            online: false,
+                            prof: '',
+                            bio: ''
+                      }
+
 ];//if you insert new properties in this database do it also in register component
 
 
@@ -155,9 +201,15 @@ app.post('/offline', (req, res) => {
   res.send('done');
 });
 
+app.post('/userroom', (req, res) => {
+  let userData = userDataBase.filter(e => e.name == req.body.user);
+  let dataSend = JSON.stringify(userData);
+  res.send(dataSend);
+});
 
 
-const server = app.listen(3008, function() {
+
+const server = app.listen(3000, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

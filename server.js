@@ -5,6 +5,8 @@ const webpackConfig = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const app = express();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const compiler = webpack(webpackConfig);
 
@@ -23,7 +25,6 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(bodyParser.json());
 
 
-
 const userDataBase = [{
                             email: 'kumastakurt@mail.ru',
                             password: 'Polypass1',
@@ -31,7 +32,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: 'хирург',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'anton@mail.ru',
@@ -40,7 +42,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: 'лор',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'sveta@mail.ru',
@@ -49,7 +52,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'zina@mail.ru',
@@ -58,7 +62,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'vadim@mail.ru',
@@ -67,7 +72,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'valera@mail.ru',
@@ -76,7 +82,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'amos@mail.ru',
@@ -85,7 +92,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'vitja@mail.ru',
@@ -94,7 +102,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       },
                       {
                             email: 'ehya@mail.ru',
@@ -103,7 +112,8 @@ const userDataBase = [{
                             polyclinic: '22',
                             online: false,
                             prof: '',
-                            bio: ''
+                            bio: '',
+                            avaImage: {}
                       }
 
 ];//if you insert new properties in this database do it also in register component
@@ -209,10 +219,6 @@ app.post('/userroom', (req, res) => {
 });
 
 app.post('/addUserData', (req, res) => {
-  console.log(req.body);
-  console.log(req.body.name);
-  console.log(req.body.prof);
-  console.log(req.body.bio);
   userDataBase.forEach(e => {
     if(e.name == req.body.name){
       e.prof = req.body.prof;
@@ -220,13 +226,20 @@ app.post('/addUserData', (req, res) => {
     }
   });
   res.send('done');
-  console.log('userDataBase:');
-  console.log(userDataBase);
+});
+
+app.post('/avaUpload', upload.fields([]), (req, res) => {
+  console.log( req.body );
+  console.log( req.files );
+
+  // userDataBase.map(e => {if(e.name == req.body.user) e.avaImage = req.body.avaImage});
+  res.sendStatus(200);
 });
 
 
 
-const server = app.listen(3002, function() {
+
+const server = app.listen(3017, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

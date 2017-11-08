@@ -106,9 +106,15 @@
   h5
     font-size: 1.3em
     margin: 20px
+    width: 250px
   p
     margin: 20px
     font-size: 1em
+    width: 250px
+    height: auto
+    white-space: normal
+    word-wrap: break-word
+    text-align: justify
   input
     border: 2px solid grey
     border-radius: 3px
@@ -129,10 +135,18 @@
 .ava
   margin: 20px
   border: 1px solid grey
-  border-radius: 3px
+  border-radius: 4px
   width: 250px
-  height: 250px
+  height: auto
+  overflow: hidden
   cursor: pointer
+
+
+// .ava-label
+//   background-size: cover
+
+#imageLoad
+  display: none
 
 .user-data::-webkit-scrollbar
     width: .5em

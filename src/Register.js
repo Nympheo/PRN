@@ -37,7 +37,8 @@ class Register extends React.Component {
                                                polyclinic: this.state.polyclinic,
                                                online: false,
                                                prof: '',
-                                               bio: ''
+                                               bio: '',
+                                               avaImage: {}
                                          });
                    xhr.send(dataSend);
                  }

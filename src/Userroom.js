@@ -6,6 +6,7 @@ class Userroom extends React.Component {
     super();
     this.back = this.back.bind(this);
     this.edit = this.edit.bind(this);
+    this.imageLoader = this.imageLoader.bind(this);
     this.state = {
       user: '',
       host: false,
@@ -64,15 +65,37 @@ class Userroom extends React.Component {
     }
   }
 
+  imageLoader(imgFile) {
+    let fr = new FileReader();
+    fr.onload = function () {
+      document.getElementsByClassName('ava')[0].src = fr.result;
+    }
+    fr.readAsDataURL(imgFile);
+
+
+    let formData = new FormData();
+    formData.append('username', this.state.user);
+    formData.append('ava', imgFile);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/avaUpload", true);
+    // xhr.setRequestHeader("Content-type", "multipart/form-data");
+    xhr.send(formData);
+  }
+
   render() {
     return (
       <div>
         <div className='user-data'>
           <button onClick={this.back}>
-            <img src='/img/back.png'></img>
+            <img src='/img/back.png'/>
             на главную
           </button>
-          <img className='ava' src='/img/user.png'></img>
+          <label htmlFor="imageLoad">
+            <img className='ava' src='/img/user.png' onClick={this.imageLoad}/>
+          </label>
+          <input id="imageLoad" type="file" name="uploads[]" accept="image/*"
+          capture onChange={e => this.imageLoader(e.target.files[0])}/>
           <h4>{this.state.user}</h4>
           {this.state.editable ? <EditUser click={this.edit}
                                            prof={this.state.prof}
@@ -108,7 +131,7 @@ class UserData extends React.Component {
         <h5>{this.props.prof ? this.props.prof : '..специальность'}</h5>
         <p>{this.props.bio ? this.props.bio : '..биография'}</p>
         {this.props.host ? <button onClick={this.handleChange}>
-                    <img src='/img/edit.png'></img>
+                    <img src='/img/edit.png'/>
                     редактировать
                   </button>
                 : <span></span>
@@ -136,7 +159,7 @@ class EditUser extends React.Component {
         <textarea id='ubio' type='text' placeholder='биография...'
         defaultValue={this.props.bio ? this.props.bio :'биография...'}/>
         <button onClick={this.handleChange}>
-           <img src='/img/done.png'></img>
+           <img src='/img/done.png'/>
            готово
          </button>
       </div>

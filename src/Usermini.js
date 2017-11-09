@@ -15,7 +15,7 @@ class Usermini extends React.Component {
     return (
        <div className='user-list' onClick={this.click}>
           <div className='ava-list'>
-            <img src='/img/user.png'/>
+            <img src={this.props.ava ? this.props.ava : '/img/user.png'}/>
           </div>
           <div className='user-info'>
             <h5>{this.props.user}</h5>

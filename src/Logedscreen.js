@@ -15,7 +15,8 @@ class Loggedscreen extends React.Component {
       polyUsers: {},
       polyUsersRender: [],
       userRoom: '',
-      host: false
+      host: false,
+      avaPath: ''
     };
   }
 
@@ -42,14 +43,17 @@ class Loggedscreen extends React.Component {
             });
             sortedUsers = sortedUsers.filter(e => e.name != current.name);
             sortedUsers.unshift(current);
-            let usersForRender = sortedUsers.map((el) =>
-                                  <Usermini onClick = {that.enterRoom}
-                                            user = {el.name}
-                                            prof = {el.prof}
-                                            online = {el.online}
-                                            key = {el.name}
-                                  />
-            );
+            let usersForRender = sortedUsers.map(function(el) {
+                return  (
+                        <Usermini onClick = {that.enterRoom}
+                                  user = {el.name}
+                                  prof = {el.prof}
+                                  online = {el.online}
+                                  key = {el.name}
+                                  ava = {el.ava}
+                        />
+                      )
+            });
             that.setState(prevState => ({
               polyUsers: sortedUsers,
               polyUsersRender: usersForRender
@@ -97,6 +101,7 @@ class Loggedscreen extends React.Component {
                                             prof = {el.prof}
                                             online = {el.online}
                                             key = {el.name}
+                                            ava = {el.ava}
                                   />
             );
             that.setState(prevState => ({

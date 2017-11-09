@@ -12,26 +12,33 @@ class Userroom extends React.Component {
       host: false,
       prof: '',
       bio: '',
+      ava: '',
       editable: false
     };
   }
 
   componentWillMount() {
     let that = this;
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/userroom", true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let userData = JSON.parse(xhr.responseText);
+    let xhr2 = new XMLHttpRequest();
+    xhr2.open("POST", "/userroom", true);
+    xhr2.setRequestHeader("Content-type", "application/json");
+    xhr2.onreadystatechange = function () {
+        if (xhr2.readyState === 4 && xhr2.status === 200) {
+            let userData = JSON.parse(xhr2.responseText);
+            let imgName;
+            if(Object.keys(userData[0].avaImage).length > 0){
+              imgName = userData[0].avaImage.path.slice(4);
+            }
             that.setState(prevState => ({
               prof: userData[0].prof,
-              bio: userData[0].bio
+              bio: userData[0].bio,
+              ava: imgName || ''
             }));
         }
     };
-    let dataSend = JSON.stringify({user: that.props.user});
-    xhr.send(dataSend);
+    let dataSend2 = JSON.stringify({user: that.props.user});
+    xhr2.send(dataSend2);
+
     this.setState(prevState => ({
       user: this.props.user,
       host: this.props.host
@@ -72,10 +79,9 @@ class Userroom extends React.Component {
     }
     fr.readAsDataURL(imgFile);
 
-
     let formData = new FormData();
-    formData.append('username', this.state.user);
     formData.append('ava', imgFile);
+    formData.append('user', this.state.user);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/avaUpload", true);
@@ -92,7 +98,9 @@ class Userroom extends React.Component {
             на главную
           </button>
           <label htmlFor="imageLoad">
-            <img className='ava' src='/img/user.png' onClick={this.imageLoad}/>
+            <img className='ava'
+                 src={this.state.ava ? this.state.ava : '/img/user.png'}
+                 onClick={this.imageLoad}/>
           </label>
           <input id="imageLoad" type="file" name="uploads[]" accept="image/*"
           capture onChange={e => this.imageLoader(e.target.files[0])}/>

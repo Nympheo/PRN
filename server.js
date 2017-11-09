@@ -4,9 +4,9 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const app = express();
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'www/uploads/' });
+const app = express();
 
 const compiler = webpack(webpackConfig);
 
@@ -23,6 +23,16 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.use(bodyParser.json());
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'www/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({storage: storage})
 
 
 const userDataBase = [{
@@ -156,7 +166,8 @@ app.post('/users', (req, res) => {
     let respBase = [];
     userDataBase.forEach(el => {
       if(el.polyclinic == poly) {
-        respBase.push({name:el.name, prof:el.prof, online:el.online});
+        let avaPath = el.avaImage.path ? el.avaImage.path.slice(4) : '';
+        respBase.push({name:el.name, prof:el.prof, online:el.online, ava: avaPath});
       }
     });
     let dataSend = JSON.stringify(respBase);
@@ -228,18 +239,17 @@ app.post('/addUserData', (req, res) => {
   res.send('done');
 });
 
-app.post('/avaUpload', upload.fields([]), (req, res) => {
-  console.log( req.body );
-  console.log( req.files );
-
-  // userDataBase.map(e => {if(e.name == req.body.user) e.avaImage = req.body.avaImage});
-  res.sendStatus(200);
+app.post('/avaUpload',
+  upload.fields([{ name: 'ava', maxCount: 1 }, { name: 'user', maxCount: 1 }]),
+  (req, res) => {
+    userDataBase.map(e =>
+      {if(e.name == req.body.user) e.avaImage = req.files['ava'][0]; console.log(e)});
+    res.sendStatus(200);
 });
 
 
 
-
-const server = app.listen(3017, function() {
+const server = app.listen(3042, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

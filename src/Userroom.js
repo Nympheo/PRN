@@ -97,13 +97,12 @@ class Userroom extends React.Component {
             <img src='/img/back.png'/>
             на главную
           </button>
-          <label htmlFor="imageLoad">
+          <label htmlFor={this.props.host ? "imageLoad" : ''}>
             <img className='ava'
-                 src={this.state.ava ? this.state.ava : '/img/user.png'}
-                 onClick={this.imageLoad}/>
+                 src={this.state.ava ? this.state.ava : '/img/user.png'}/>
           </label>
           <input id="imageLoad" type="file" name="uploads[]" accept="image/*"
-          capture onChange={e => this.imageLoader(e.target.files[0])}/>
+          capture onChange={(e) => this.imageLoader(e.target.files[0])}/>
           <h4>{this.state.user}</h4>
           {this.state.editable ? <EditUser click={this.edit}
                                            prof={this.state.prof}

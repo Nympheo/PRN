@@ -249,7 +249,7 @@ app.post('/avaUpload',
 
 
 
-const server = app.listen(3042, function() {
+const server = app.listen(3045, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
@@ -273,7 +273,6 @@ function checkUser(body) {
       el.online = true;
       return;
     }
-    answer = 'Неверный адрес электронной почты';
   });
-  return answer;
+  return answer || 'Неверный адрес электронной почты';
 }

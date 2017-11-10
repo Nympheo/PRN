@@ -41,9 +41,10 @@ class Loggedscreen extends React.Component {
             sortedUsers.map(e => {
               if(e.name == that.props.user) current = e;
             });
+            current.host = true;
             sortedUsers = sortedUsers.filter(e => e.name != current.name);
             sortedUsers.unshift(current);
-            let usersForRender = sortedUsers.map(function(el) {
+            let usersForRender = sortedUsers.map(function(el, i) {
                 return  (
                         <Usermini onClick = {that.enterRoom}
                                   user = {el.name}
@@ -51,6 +52,7 @@ class Loggedscreen extends React.Component {
                                   online = {el.online}
                                   key = {el.name}
                                   ava = {el.ava}
+                                  host = {el.host ? el.host : ''}
                         />
                       )
             });
@@ -65,22 +67,32 @@ class Loggedscreen extends React.Component {
   }
 
   enterRoom(user) {
-    if(user == this.props.user){
-      this.setState(prevState => ({
-        entered: !prevState.entered,
-        userRoom: user,
-        host: true
-      }));
-    }else {
-      this.setState(prevState => ({
-        entered: !prevState.entered,
-        userRoom: user,
-        host: false
-      }));
+    if(user == 'out'){
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/offline", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      let dataSend = JSON.stringify({name: this.props.user});
+      xhr.send(dataSend);
+      this.props.out();
+    } else {
+      if(user == this.props.user){
+        this.setState(prevState => ({
+          entered: !prevState.entered,
+          userRoom: user,
+          host: true
+        }));
+      }else {
+        this.setState(prevState => ({
+          entered: !prevState.entered,
+          userRoom: user,
+          host: false
+        }));
+      }
     }
   }
 
-  toMainScreen() {
+  toMainScreen(out) {
+    if(out)this.out();
     let xhr = new XMLHttpRequest();
     let that = this;
     xhr.open("POST", "/users", true);
@@ -93,15 +105,17 @@ class Loggedscreen extends React.Component {
             sortedUsers.map(e => {
               if(e.name == that.props.user) current = e;
             });
+            current.host = true;
             sortedUsers = sortedUsers.filter(e => e.name != current.name);
             sortedUsers.unshift(current);
-            let usersForRender = sortedUsers.map((el) =>
+            let usersForRender = sortedUsers.map((el, i) =>
                                   <Usermini onClick = {that.enterRoom}
                                             user = {el.name}
                                             prof = {el.prof}
                                             online = {el.online}
                                             key = {el.name}
                                             ava = {el.ava}
+                                            host = {el.host ? el.host : ''}
                                   />
             );
             that.setState(prevState => ({

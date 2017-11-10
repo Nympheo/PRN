@@ -11,23 +11,24 @@ class Enterscreen extends React.Component {
     this.swapHandler = this.swapHandler.bind(this);
     this.forgetPass = this.forgetPass.bind(this);
     this.access = this.access.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
       isLogged: false,
       approved: true,                           // entered for development
-      user: 'Журавкин Дмитрий',                                 // dev
-      userBase: [{name: "Журавкин Дмитрий", prof: "хирург", online: true}, // dev
-                 {name: "Зорина Светлана", prof: "", online: true},
-                 {name: "Юрко Зинаида", prof: "", online: true},
-                 {name: "Иванов Антон", prof: "лор", online: false},
-                 {name: "Орехов Вадим", prof: "", online: true},
-                 {name: "Кульбицкий Валера", prof: "", online: false},
-                 {name: "Амосов Андрей", prof: "", online: true},
-                 {name: "Андреенко Виктор", prof: "", online: false},
-                 {name: "Орехова Евгения", prof: "", online: true}]
+      user: 'Журавкин Дмитрий',                 // entered for development
+      userBase: []
     };
   }
 
-
+  // {name:'Журавкин Дмитрий', prof: 'хирург', online: true, ava: {}},
+  //            {name:'Иванов Антон', prof:'', online:true, ava: {}},
+  //            {name:'Зорина Светлана', prof:'', online:false, ava: {}},
+  //            {name:'Юрко Зинаида', prof:'лор', online:true, ava: {}},
+  //            {name:'Орехов Вадим', prof:'', online:false, ava: {}},
+  //            {name:'Кульбицкий Валера', prof:'', online:false, ava: {}},
+  //            {name:'Амосов Андрей', prof:'терапевт', online:true, ava: {}},
+  //            {name:'Андреенко Виктор', prof:'', online:true, ava: {}},
+  //            {name:'Орехова Евгения', prof:'', online:false, ava: {}}
 
   swapHandler() {
     this.setState(prevState => ({
@@ -64,10 +65,16 @@ class Enterscreen extends React.Component {
   }
   }
 
+  logout() {
+    this.setState({approved: false});
+  }
+
   render() {
     return (
        <div className='enterscreen-full'>
-        {this.state.approved ? <Logedscreen user={this.state.user} users={this.state.userBase}/>
+        {this.state.approved ? <Logedscreen user={this.state.user}
+                                            users={this.state.userBase}
+                                            out={this.logout}/>
           : <div className='enterscreen-wrap'>
               {this.state.isLogged ? <Register/> : <Login access={this.access}/>}
               <hr/>

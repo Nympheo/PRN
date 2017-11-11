@@ -7,6 +7,8 @@
 .users-wrap
   min-width: 300px
   height: 98vh
+  position: relative
+  left: 0px
   display: inline-block
   float: left
   border: 1px solid grey
@@ -24,6 +26,12 @@
 .users-wrap::-webkit-scrollbar-thumb
   background-color: darkgrey
   outline: 1px solid slategrey
+
+
+
+
+
+
 
 
 
@@ -56,6 +64,18 @@
   h5
     margin: 5px
 
+.mini-user-icons
+  text-align: right
+  cursor: pointer
+  span:first-child
+    margin-right: 17px
+  img
+    width: 30px
+    height: auto
+  span:nth-child(2)
+    img
+      height: 26px
+      margin-bottom: 2px
 
 .user-list:first-child
   background-color: rgba(201, 223, 193, 0.67)
@@ -63,8 +83,8 @@
   border-radius: 3px
   .ava-list
     img
-      width: 80px
-      height: 80px
+      width: 84px
+      height: 84px
       margin: 10px 0px 10px 10px
   .user-info
     margin: 7px
@@ -74,6 +94,24 @@
     h5
       font-size: 1.1em
       margin: 7px
+
+#hideUsers
+  position: absolute
+  top: 50vh
+  left: 333px
+  width: 22px
+  height: 20px
+  border: 1px solid grey
+  border-radius: 0 17px 17px 0
+  border-left: none
+  background-color: rgba(179, 201, 171, 0.67)
+  z-index: 0
+  img
+    position: relative
+    top: 2px
+    left: 3px
+
+
 
 
 //user room
@@ -153,7 +191,6 @@
 .user-data::-webkit-scrollbar-thumb
   background-color: darkgrey
   outline: 1px solid slategrey
-
 
 .user-contribution
   min-width: 300px

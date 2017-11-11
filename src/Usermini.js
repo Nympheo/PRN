@@ -25,9 +25,9 @@ class Usermini extends React.Component {
           <div className='user-info'>
             <h5>{this.props.user}</h5>
             <p>{this.props.prof ? this.props.prof : 'не заполнено'}</p>
-            {this.props.host ? <div>
-                                  <span onClick={this.out}><img src='/img/logout.png'/></span>
-                                  <span onClick={this.click}><img src='/img/info.png'/></span>
+            {this.props.host ? <div className='mini-user-icons'>
+                                  <span onClick={this.out}><img src='/img/logout.png' title="выход"/></span>
+                                  <span onClick={this.click}><img src='/img/info.png' title="информация пользователя"/></span>
                                 </div>
                              : <span></span>
             }

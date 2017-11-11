@@ -10,13 +10,15 @@ class Loggedscreen extends React.Component {
     super();
     this.enterRoom = this.enterRoom.bind(this);
     this.toMainScreen = this.toMainScreen.bind(this);
+    this.hideUsers = this.hideUsers.bind(this);
     this.state = {
       entered: false,
       polyUsers: {},
       polyUsersRender: [],
       userRoom: '',
       host: false,
-      avaPath: ''
+      avaPath: '',
+      userSideBar: true
     };
   }
 
@@ -129,6 +131,22 @@ class Loggedscreen extends React.Component {
     xhr.send(dataSend);
   }
 
+  hideUsers() {
+    this.setState({userSideBar: !this.state.userSideBar});
+    let sideBar = document.getElementsByClassName('users-wrap')[0];
+    let pos = this.state.userSideBar ? 0 : -329;
+    let id = setInterval(frame, 0.3);
+    let that = this;
+    function frame() {
+      if (pos == 329 || pos == -1) {
+        clearInterval(id);
+      } else {
+        pos++;
+        sideBar.style.left = that.state.userSideBar ? pos + 'px' : -pos + 'px';
+        hideUsers.style.left = that.state.userSideBar ? pos+333 + 'px' : -pos+333 + 'px';
+      }
+    }
+  }
 
   render() {
     return (
@@ -138,8 +156,11 @@ class Loggedscreen extends React.Component {
                                         back = {this.toMainScreen}
                               />
         : <div className='work'>
-            <div className='users-wrap'>
+             <div className='users-wrap'>
               {this.state.polyUsersRender}
+             </div>
+             <div id='hideUsers' onClick={this.hideUsers}>
+              <img src={this.state.userSideBar ? '/img/true.png' : '/img/false.png'}/>
              </div>
              <div className='workspace-wrap'>
                <Workspace/>

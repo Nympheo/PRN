@@ -143,7 +143,7 @@ class Loggedscreen extends React.Component {
       } else {
         pos++;
         sideBar.style.left = that.state.userSideBar ? pos + 'px' : -pos + 'px';
-        hideUsers.style.left = that.state.userSideBar ? pos+333 + 'px' : -pos+333 + 'px';
+        hideUsers.style.left = that.state.userSideBar ? pos+344 + 'px' : -pos+344 + 'px';
       }
     }
   }

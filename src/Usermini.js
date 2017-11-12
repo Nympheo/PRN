@@ -16,11 +16,20 @@ class Usermini extends React.Component {
       this.props.onClick('out');
   }
 
+
+  // /uploads/03UB-m1nN_c.jpg
   render() {
+
+  let background = this.props.ava ? this.props.ava.replace(/\\/, "/") : '/img/user.png';
+  console.log(background);
+
     return (
        <div className='user-list' onClick={this.props.host ? ()=>false : this.click}>
           <div className='ava-list'>
-            <img src={this.props.ava ? this.props.ava : '/img/user.png'}/>
+            <div className='mini-user-ava'
+                 style={{backgroundImage: `url(${background})`}}>
+            </div>
+
           </div>
           <div className='user-info'>
             <h5>{this.props.user}</h5>

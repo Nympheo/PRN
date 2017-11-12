@@ -47,10 +47,12 @@
 .ava-list
   display: inline-block
   margin: 6px
-  img
-    width: auto
-    height: 55px
-    border-radius: 3px
+
+.mini-user-ava
+  width: 55px
+  height: 55px
+  border-radius: 3px
+  background-size: contain
 
 .user-info
   width: auto
@@ -82,10 +84,11 @@
   border: 2px solid grey
   border-radius: 3px
   .ava-list
-    img
+    .mini-user-ava
       width: 84px
       height: 84px
       margin: 10px 0px 10px 10px
+      background-size: contain
   .user-info
     margin: 7px
     p
@@ -98,7 +101,7 @@
 #hideUsers
   position: absolute
   top: 50vh
-  left: 333px
+  left: 344px
   width: 22px
   height: 20px
   border: 1px solid grey

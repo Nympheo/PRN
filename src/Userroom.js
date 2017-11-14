@@ -135,8 +135,8 @@ class UserData extends React.Component {
   render() {
     return (
       <div>
-        <h5>{this.props.prof ? this.props.prof : '..специальность'}</h5>
-        <p>{this.props.bio ? this.props.bio : '..биография'}</p>
+        <h5>{this.props.prof ? this.props.prof : 'должность'}</h5>
+        <p>{this.props.bio ? this.props.bio : 'биография'}</p>
         {this.props.host ? <button onClick={this.handleChange}>
                     <img src='/img/edit.png'/>
                     редактировать
@@ -161,8 +161,8 @@ class EditUser extends React.Component {
   render() {
     return (
       <div>
-        <input id='uspec' type='text' placeholder='специализация...'
-        defaultValue={this.props.prof ? this.props.prof :'специальность...'}/>
+        <input id='uspec' type='text' placeholder='должность...'
+        defaultValue={this.props.prof ? this.props.prof :'должность...'}/>
         <textarea id='ubio' type='text' placeholder='биография...'
         defaultValue={this.props.bio ? this.props.bio :'биография...'}/>
         <button onClick={this.handleChange}>

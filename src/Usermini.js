@@ -17,12 +17,8 @@ class Usermini extends React.Component {
   }
 
 
-  // /uploads/03UB-m1nN_c.jpg
   render() {
-
   let background = this.props.ava ? this.props.ava.replace(/\\/, "/") : '/img/user.png';
-  console.log(background);
-
     return (
        <div className='user-list' onClick={this.props.host ? ()=>false : this.click}>
           <div className='ava-list'>
@@ -33,7 +29,7 @@ class Usermini extends React.Component {
           </div>
           <div className='user-info'>
             <h5>{this.props.user}</h5>
-            <p>{this.props.prof ? this.props.prof : 'не заполнено'}</p>
+            <p>{this.props.prof ? this.props.prof : 'должность'}</p>
             {this.props.host ? <div className='mini-user-icons'>
                                   <span onClick={this.out}><img src='/img/logout.png' title="выход"/></span>
                                   <span onClick={this.click}><img src='/img/info.png' title="информация пользователя"/></span>

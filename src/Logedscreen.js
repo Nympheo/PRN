@@ -136,9 +136,7 @@ class Loggedscreen extends React.Component {
     let sideBar = document.getElementsByClassName('users-wrap')[0];
     let workspace = document.getElementsByClassName('workspace-wrap')[0];
     let width = workspace.offsetWidth;
-    // let widthInvert = width + 329;
     let pos = this.state.userSideBar ? 0 : -329;
-    // let posInvert = 0;
     let id = setInterval(frame, 0.3);
     let that = this;
     function frame() {
@@ -146,10 +144,6 @@ class Loggedscreen extends React.Component {
         clearInterval(id);
       } else {
         pos++;
-        // posInvert++;
-        console.log(pos);
-        console.log(workspace.style.minWidth);
-
         sideBar.style.left = that.state.userSideBar ? pos + 'px' : -pos + 'px';
         hideUsers.style.left = that.state.userSideBar ? pos+344 + 'px' : -pos+344 + 'px';
         workspace.style.left = pos > 0 ? -pos + 'px' : +pos + 'px';

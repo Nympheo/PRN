@@ -5,7 +5,8 @@ const webpackConfig = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-// const upload = multer({ dest: 'www/uploads/' });
+const userDataBase = require('./userDataBase.js');
+
 const app = express();
 
 const compiler = webpack(webpackConfig);
@@ -35,98 +36,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 
-const userDataBase = [{
-                            email: 'kumastakurt@mail.ru',
-                            password: 'Polypass1',
-                            name: 'Журавкин Дмитрий',
-                            polyclinic: '22',
-                            online: false,
-                            prof: 'хирург',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'anton@mail.ru',
-                            password: 'Anton1',
-                            name: 'Иванов Антон',
-                            polyclinic: '22',
-                            online: false,
-                            prof: 'лор',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'sveta@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Зорина Светлана',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'zina@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Юрко Зинаида',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'vadim@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Орехов Вадим',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'valera@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Кульбицкий Валера',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'amos@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Амосов Андрей',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'vitja@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Андреенко Виктор',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      },
-                      {
-                            email: 'ehya@mail.ru',
-                            password: 'Vadim1',
-                            name: 'Орехова Евгения',
-                            polyclinic: '22',
-                            online: false,
-                            prof: '',
-                            bio: '',
-                            avaImage: {}
-                      }
-
-];//if you insert new properties in this database do it also in register component
 
 
 /*   REQUEST HANDLERS   */
@@ -249,7 +158,7 @@ app.post('/avaUpload',
 
 
 
-const server = app.listen(3000, function() {
+const server = app.listen(3001, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

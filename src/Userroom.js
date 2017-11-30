@@ -159,10 +159,43 @@ class EditUser extends React.Component {
   }
 
   render() {
+    // <input id='uspec' type='text' placeholder='должность...'
+    // defaultValue={this.props.prof ? this.props.prof :'должность...'}/>
     return (
       <div>
-        <input id='uspec' type='text' placeholder='должность...'
-        defaultValue={this.props.prof ? this.props.prof :'должность...'}/>
+        <select>
+          <option selected value='должность..'>должность..</option>
+          <option value='аллерголог'>аллерголог</option>
+          <option value='гастроэнтеролог'>гастроэнтеролог</option>
+          <option value='гематолог'>гематолог</option>
+          <option value='гериатр'>гериатр</option>
+          <option value='дерматолог'>дерматолог</option>
+          <option value='иммунолог'>иммунолог</option>
+          <option value='инфекционист'>инфекционист</option>
+          <option value='кардиолог'>кардиолог</option>
+          <option value='невролог'>невролог</option>
+          <option value='нефролог'>нефролог</option>
+          <option value='онколог'>онколог</option>
+          <option value='оториноларинголог'>оториноларинголог</option>
+          <option value='офтальмолог'>офтальмолог</option>
+          <option value='проктолог'>проктолог</option>
+          <option value='психотерапевт'>психотерапевт</option>
+          <option value='пульмонолог'>пульмонолог</option>
+          <option value='реабилитолог'>реабилитолог</option>
+          <option value='ревматолог'>ревматолог</option>
+          <option value='терапевт'>терапевт</option>
+          <option value='травматолог'>травматолог</option>
+          <option value='уролог'>уролог</option>
+          <option value='физиотерапевт'>физиотерапевт</option>
+          <option value='хирург'>хирург</option>
+          <option value='эндокринолог'>эндокринолог</option>
+          <option disabled>__________________</option>
+          <option value='врач ЛФК'>врач ЛФК</option>
+          <option value='врач МРТ'>врач МРТ</option>
+          <option value='врач РДИ'>врач РДИ</option>
+          <option value='врач РКТ'>врач РКТ</option>
+          <option value='врач УЗИ'>врач УЗИ</option>
+        </select>
         <textarea id='ubio' type='text' placeholder='биография...'
         defaultValue={this.props.bio ? this.props.bio :'биография...'}/>
         <button onClick={this.handleChange}>

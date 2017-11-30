@@ -38,7 +38,8 @@ class Register extends React.Component {
                                                online: false,
                                                prof: '',
                                                bio: '',
-                                               avaImage: {}
+                                               avaImage: {},
+                                               work: []
                                          });
                    xhr.send(dataSend);
                  }

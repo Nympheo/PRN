@@ -61,8 +61,6 @@ app.post('/registration', (req, res) => {
     answer = 'Успешная регистрация';
   }
   res.send(answer);
-  console.log('userDataBase:');
-  console.log(userDataBase);
 });
 
 app.post('/users', (req, res) => {
@@ -152,7 +150,7 @@ app.post('/avaUpload',
   upload.fields([{ name: 'ava', maxCount: 1 }, { name: 'user', maxCount: 1 }]),
   (req, res) => {
     userDataBase.map(e =>
-      {if(e.name == req.body.user) e.avaImage = req.files['ava'][0]; console.log(e)});
+      {if(e.name == req.body.user) e.avaImage = req.files['ava'][0];});
     res.sendStatus(200);
 });
 

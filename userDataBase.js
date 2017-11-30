@@ -210,7 +210,7 @@
                             name: 'Иванов Антон',
                             polyclinic: '22',
                             online: false,
-                            prof: 'лор',
+                            prof: 'оториноларинголог',
                             bio: '',
                             avaImage: {},
                             work: [

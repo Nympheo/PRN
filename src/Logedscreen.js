@@ -169,7 +169,7 @@ class Loggedscreen extends React.Component {
               <img src={this.state.userSideBar ? '/img/true.png' : '/img/false.png'}/>
              </div>
              <div className='workspace-wrap'>
-               <Workspace/>
+               <Workspace base={this.state.polyUsers}/>
              </div>
            </div>}
       </div>

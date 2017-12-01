@@ -74,7 +74,11 @@ app.post('/users', (req, res) => {
     userDataBase.forEach(el => {
       if(el.polyclinic == poly) {
         let avaPath = el.avaImage.path ? el.avaImage.path.slice(4) : '';
-        respBase.push({name:el.name, prof:el.prof, online:el.online, ava: avaPath});
+        respBase.push({name:el.name,
+                       prof:el.prof,
+                       online:el.online,
+                       ava: avaPath,
+                       work: el.work});
       }
     });
     let dataSend = JSON.stringify(respBase);
@@ -156,7 +160,7 @@ app.post('/avaUpload',
 
 
 
-const server = app.listen(3001, function() {
+const server = app.listen(3006, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

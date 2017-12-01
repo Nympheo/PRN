@@ -122,6 +122,10 @@ class Userroom extends React.Component {
   }
 }
 
+
+
+
+
 class UserData extends React.Component {
   constructor(props) {
     super(props);
@@ -148,6 +152,11 @@ class UserData extends React.Component {
   }
 }
 
+
+
+
+
+
 class EditUser extends React.Component {
   constructor(props) {
     super(props);
@@ -159,12 +168,10 @@ class EditUser extends React.Component {
   }
 
   render() {
-    // <input id='uspec' type='text' placeholder='должность...'
-    // defaultValue={this.props.prof ? this.props.prof :'должность...'}/>
     return (
       <div>
-        <select>
-          <option selected value='должность..'>должность..</option>
+        <select id='uspec' defaultValue={this.props.prof ? this.props.prof :'должность..'}>
+          <option value='должность..'>должность..</option>
           <option value='аллерголог'>аллерголог</option>
           <option value='гастроэнтеролог'>гастроэнтеролог</option>
           <option value='гематолог'>гематолог</option>

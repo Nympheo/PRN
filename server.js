@@ -160,7 +160,7 @@ app.post('/avaUpload',
 
 
 
-const server = app.listen(3006, function() {
+const server = app.listen(3001, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

@@ -100,7 +100,7 @@ app.post('/recover', (req, res) => {
         port: 25,
         auth: {
           user: 'synthetic.probe@gmail.com',
-          pass: 'GooglePass1234'
+          pass: 'Googlepas1234'
         },
         tls: {
           rejectUnauthorized: false
@@ -160,7 +160,7 @@ app.post('/avaUpload',
 
 
 
-const server = app.listen(3001, function() {
+const server = app.listen(3006, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

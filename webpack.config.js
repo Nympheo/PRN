@@ -19,6 +19,15 @@ module.exports = {
         ],
       },
       {
+    test: /\.jsx?$/,         // Match both .js and .jsx files
+    exclude: /node_modules/,
+    loader: "babel-loader",
+    query:
+      {
+        presets:['react']
+      }
+      },
+      {
         test: /\.sass$/,
         use: [{
             loader: "style-loader" // creates style nodes from JS strings

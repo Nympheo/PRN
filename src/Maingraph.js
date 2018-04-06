@@ -2,104 +2,147 @@ import React from 'react';
 import * as d3 from "d3";
 
 
-
 class Maingraph extends React.Component {
   constructor() {
     super();
     this.createAreaChart = this.createAreaChart.bind(this);
+    this.prepareData = this.prepareData.bind(this);
     this.state = {
-      base: []
+      base: [],
+      dataReady: false,
     };
   }
 
+  componentWillMount() {
+     console.log('componentWillMount');
+  }
+
   componentDidMount() {
-     // this.createAreaChart();
-
-     // this.setState({base: this.props.base});
-     console.log('mount');
-
+     console.log('componentDidMount');
   }
 
   componentDidUpdate() {
-     console.log('update');
+     console.log('componentDidUpdate');
+  }
 
-     let updatedBase = this.props.base[0].work;
-     let that = this;
+  prepareData(){
+    console.log('prepareData');
+    console.log(this.props.base);
 
-     updatedBase = updatedBase.map(function(el,i) {
-       let sum = 0;
-       sum = that.props.base.reduce(function(prev,cur){
-         return prev + cur.work[i].data.count;
-       }, 0);
+    let updatedBase = this.props.base[0].work;
+    let that = this;
 
-       return {
-         date: el.date,
-         data: sum
-       }
-     })
+    updatedBase = updatedBase.map(function(el,i) {
+      let sum = 0;
+      sum = that.props.base.reduce(function(prev,cur){
+        return prev + cur.work[i].data.count;
+      }, 0);
 
-     this.setState((prv,prp) => {base: updatedBase});
-     this.createAreaChart();
+      return {
+        date: el.date,
+        data: sum
+      }
+    });
 
+   // this.setState((prevState, props) => {
+   //    return {base: updatedBase, dataReady: true};
+   // }); :(
+
+   this.state.base = updatedBase;
+   this.state.dataReady = true;
+
+    this.createAreaChart();
   }
 
   createAreaChart() {
-    d3.select('#main').append('rect').attr('width', 100).attr('height', 400);
-     // const node = this.node;
-     // const width = node.clientWidth;
-     // const height = node.clientHeight;
-     // const countMax = d3.max(this.props.base, e => d3.max(e.work, e => e.data.count));
-     // const timeMax = d3.extent(this.props.base[0].work, e => e.date);
-     //
-     //
-     // const yScale = d3.scaleLinear()
-     //    .domain([0, countMax])
-     //    .range([0, height]);
-     // const xScale = d3.scaleTime()
-     //    .domain([0, timeMax])
-     //    .range([0, width]);
-     //
-     // const xAxis = d3.axisBottom(xScale),
-     //       yAxis = d3.axisLeft(yScale);
-     //
-     // const area = d3.area()
-     //    .curve(d3.curveMonotoneX)
-     //    .x(function(d, i) { return xScale(d.work[i].date); })
-     //    .y0(height)
-     //    .y1(function(d, i) { return yScale(d.work); });
-console.log('create chart');
+     console.log('create chart');
 
-//--------------------------------------
-     //  select(node)
-     //     .selectAll('rect')
-     //     .data(this.props.data)
-     //     .enter()
-     //     .append('rect');
-     //
-     //  select(node)
-     //     .selectAll('rect')
-     //     .data(this.props.data)
-     //     .exit()
-     //     .remove();
-     //
-     //  select(node)
-     //     .selectAll('rect')
-     //     .data(this.props.data)
-     //     .style('fill', '#fe9922')
-     //     .attr('x', (d,i) => i * 25)
-     //     .attr('y', d => this.props.size[1] - yScale(d))
-     //     .attr('height', d => yScale(d))
-     //     .attr('width', 25);
+     const margin = {top: 10, right: 35, bottom: 45, left: 35};
+     const width = this.node.clientWidth - margin.left - margin.right;
+     const height = this.node.clientHeight - margin.top - margin.bottom;
+
+     const svg = d3.select(this.node).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+     const countMax = d3.max(this.state.base, e => e.data);
+     let timeMax = d3.extent(this.props.base[0].work, e => new Date(e.date));
+     // timeMax = timeMax.map(e => new Date(e));
+    //  console.log(timeMax);
+    // console.log(timeMax[0] instanceof Date);
+
+     const yScale = d3.scaleLinear()
+        .domain([0, countMax + 100])
+        .range([height, 0]);
+     const xScale = d3.scaleTime()
+        // .domain([0, timeMax])
+        .domain([new Date(2015,11,2), new Date(2017,11,2)])
+        .range([0, width]);
+
+     const xAxis = d3.axisBottom(xScale).ticks(24),
+           yAxis = d3.axisLeft(yScale);
+
+     const tip = d3.select("body").append("div")
+                  .attr("class", "tooltip")
+                  .style("opacity", 0);
+
+
+      svg.append("g")
+         .attr("class", "axis axis--x")
+         .attr("transform", "translate(-15," + height + ")")
+         .call(xAxis)
+         .selectAll("text")
+            .attr("y", 0)
+            .attr("x", 9)
+            .attr("dy", ".35em")
+            .attr("transform", "rotate(45)")
+            .style("text-anchor", "start");
+
+      svg.append("g")
+         .attr("class", "axis axis--y")
+         .call(yAxis)
+            .select('text')
+            .attr("transform", "translate(-10,0)");
+
+      const barWidth = (width / this.state.base.length);
+      svg.selectAll('rect')
+         .data(this.state.base)
+         .enter()
+         .append('rect')
+         .attr("transform", (d,i) => `translate(${i*barWidth+1},0)`)
+           .on("mouseover", function(d) {
+                tip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tip.html(d.data)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+                    })
+            .on("mouseout", function(d) {
+                tip.transition()
+                    .duration(400)
+                    .style("opacity", 0);
+            });
+
+      svg.selectAll('rect')
+         .style('fill', '#fe9922')
+         .attr('x', 5)
+         .attr('y', d =>  yScale(d.data))
+         .attr('height', d => height - yScale(d.data))
+         .attr('width', 25);
   }
 
 
   render() {
-    // console.log(this.props.base);
     console.log('render');
-    console.log(this.state);
+
+    if(Object.keys(this.props.base).length > 0 && !this.state.dataReady) this.prepareData();
+
     return (
       <div className='workspace'>
-        <svg id='main' ref={node => this.node = node}></svg>
+        <div id='main' ref={node => this.node = node}></div>
       </div>
     )
   }

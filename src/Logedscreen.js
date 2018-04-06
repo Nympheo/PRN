@@ -155,6 +155,7 @@ class Loggedscreen extends React.Component {
   }
 
   render() {
+    console.log(this.state.polyUsers);
     return (
       <div className='logged-screen'>
         {this.state.entered ? <Userroom user={this.state.userRoom}
@@ -169,7 +170,8 @@ class Loggedscreen extends React.Component {
               <img src={this.state.userSideBar ? '/img/true.png' : '/img/false.png'}/>
              </div>
              <div className='workspace-wrap'>
-               <Workspace base={this.state.polyUsers}/>
+               <Workspace base={this.state.polyUsers}
+               />
              </div>
            </div>}
       </div>

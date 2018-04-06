@@ -15,9 +15,10 @@ class Workspace extends React.Component {
 
 
   render() {
+    // console.log('workspace' + this.props.polyclinicNum);
     return (
       <div className='work-section'>
-      <h2>Сведения о работе врачей поликлиники</h2>
+      <h2>Данные о работе врачей поликлиники 22</h2>
         <Maingraph base={this.props.base}/>
         <Detailedgraph base={this.props.base}/>
       </div>

@@ -155,7 +155,6 @@ class Loggedscreen extends React.Component {
   }
 
   render() {
-    console.log(this.state.polyUsers);
     return (
       <div className='logged-screen'>
         {this.state.entered ? <Userroom user={this.state.userRoom}

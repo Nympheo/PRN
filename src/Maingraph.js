@@ -7,27 +7,28 @@ class Maingraph extends React.Component {
     super();
     this.createAreaChart = this.createAreaChart.bind(this);
     this.prepareData = this.prepareData.bind(this);
+    this.rectSelected = this.rectSelected.bind(this);
     this.state = {
       base: [],
       dataReady: false,
     };
   }
 
-  componentWillMount() {
-     console.log('componentWillMount');
-  }
-
-  componentDidMount() {
-     console.log('componentDidMount');
-  }
-
-  componentDidUpdate() {
-     console.log('componentDidUpdate');
-  }
+  // componentWillMount() {
+  //    console.log('componentWillMount');
+  // }
+  //
+  // componentDidMount() {
+  //    console.log('componentDidMount');
+  // }
+  //
+  // componentDidUpdate() {
+  //    console.log('componentDidUpdate');
+  // }
 
   prepareData(){
-    console.log('prepareData');
-    console.log(this.props.base);
+    // console.log('prepareData');
+    // console.log(this.props.base);
 
     let updatedBase = this.props.base[0].work;
     let that = this;
@@ -55,7 +56,8 @@ class Maingraph extends React.Component {
   }
 
   createAreaChart() {
-     console.log('create chart');
+     console.log('create main chart');
+     let that = this;
 
      const margin = {top: 10, right: 35, bottom: 45, left: 35};
      const width = this.node.clientWidth - margin.left - margin.right;
@@ -104,7 +106,7 @@ class Maingraph extends React.Component {
          .attr("class", "axis axis--y")
          .call(yAxis)
             .select('text')
-            .attr("transform", "translate(-10,0)");
+            .attr("transform", "translate(-9,0)");
 
       const barWidth = (width / this.state.base.length);
       svg.selectAll('rect')
@@ -113,12 +115,18 @@ class Maingraph extends React.Component {
          .append('rect')
          .attr("transform", (d,i) => `translate(${i*barWidth+1},0)`)
            .on("mouseover", function(d) {
+             // d3.select(this)
+             //     .style({
+             //       'fill': 'rgb(184, 15, 15)',
+             //       'fill-opacity': 0.6
+             //     });
                 tip.transition()
                     .duration(200)
                     .style("opacity", .9);
                 tip.html(d.data)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
+                    that.rectSelected(d);          //select data
                     })
             .on("mouseout", function(d) {
                 tip.transition()
@@ -128,21 +136,27 @@ class Maingraph extends React.Component {
 
       svg.selectAll('rect')
          .style('fill', '#fe9922')
+         .attr('class', 'mainBar')
          .attr('x', 5)
          .attr('y', d =>  yScale(d.data))
          .attr('height', d => height - yScale(d.data))
          .attr('width', 25);
   }
 
+  rectSelected(d){
+    this.props.select(d);
+  }
+
 
   render() {
-    console.log('render');
+    console.log('main render');
 
     if(Object.keys(this.props.base).length > 0 && !this.state.dataReady) this.prepareData();
 
     return (
       <div className='workspace'>
         <div id='main' ref={node => this.node = node}></div>
+        <h4>Количество принятых пациентов</h4>
       </div>
     )
   }

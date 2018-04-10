@@ -4,7 +4,7 @@
  const userDataBase = [{
                             email: 'kumastakurt@mail.ru',
                             password: 'Polypass1',
-                            name: 'Журавкин Дмитрий',
+                            name: 'Жур Дмитрий',
                             polyclinic: '22',
                             online: false,
                             prof: 'хирург',
@@ -207,7 +207,7 @@
                       {
                             email: 'anton@mail.ru',
                             password: 'Anton1',
-                            name: 'Иванов Антон',
+                            name: 'Иванов Константин',
                             polyclinic: '22',
                             online: false,
                             prof: 'оториноларинголог',
@@ -819,7 +819,7 @@
                       {
                             email: 'vadim@mail.ru',
                             password: 'Vadim1',
-                            name: 'Орехов Вадим',
+                            name: 'Орехов Павел',
                             polyclinic: '22',
                             online: false,
                             prof: 'кардиолог',
@@ -1023,7 +1023,7 @@
                       {
                             email: 'valera@mail.ru',
                             password: 'Vadim1',
-                            name: 'Кульбицкий Валера',
+                            name: 'Кульбицкий Михаил',
                             polyclinic: '22',
                             online: false,
                             prof: 'терапевт',
@@ -1227,7 +1227,7 @@
                       {
                             email: 'amos@mail.ru',
                             password: 'Vadim1',
-                            name: 'Амосов Андрей',
+                            name: 'Амосов Алексей',
                             polyclinic: '22',
                             online: false,
                             prof: 'терапевт',

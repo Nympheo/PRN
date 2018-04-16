@@ -20,7 +20,8 @@ class Usermini extends React.Component {
   render() {
   let background = this.props.ava ? this.props.ava.replace(/\\/, "/") : '/img/user.png';
     return (
-       <div className='user-list' onClick={this.props.host ? ()=>false : this.click}>
+       <div className={this.props.className ? 'user-list withHost' : 'user-list' }
+            onClick={this.props.host ? ()=>false : this.click}>
           <div className='ava-list'>
             <div className='mini-user-ava'
                  style={{backgroundImage: `url(${background})`}}>

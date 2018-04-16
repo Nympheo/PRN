@@ -15,7 +15,7 @@ class Enterscreen extends React.Component {
     this.state = {
       isLogged: false,
       approved: true,                           // entered for development
-      user: 'Журавкин Дмитрий',                 // entered for development
+      user: 'Жур Дмитрий',                 // entered for development
       userBase: []
     };
   }
@@ -86,6 +86,8 @@ class Enterscreen extends React.Component {
                   </div> }
             </div>
         }
+        <h5 className='loginTip'>* Желающим ознакомиться со статистикой, 
+        достаточно ввести номер интересующей поликлиники</h5>
       </div>
     )
   }

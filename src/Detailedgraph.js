@@ -31,7 +31,6 @@ class Detailedgraph extends React.Component {
   // }
 
   drawAxes(){
-    console.log('draw axes');
     this.state.axes = true;
 
     const margin = {top: 0, right: 15, bottom: 20, left: 160};
@@ -78,8 +77,6 @@ class Detailedgraph extends React.Component {
   }
 
   createBarChart() {
-     console.log('create Bar chart');
-
      const t = d3.transition()
          .duration(500)
          .ease(d3.easeLinear);
@@ -123,10 +120,12 @@ class Detailedgraph extends React.Component {
   }
 
   render() {
-    console.log('detailed graph render');
     if(Object.keys(this.props.selectDet).length > 0 && !this.state.axes) this.drawAxes();
     if(Object.keys(this.props.selectDet).length > 0) this.createBarChart();
-
+        // <div id='after'></div>
+        // <button onClick={this.handleChange} title="скачать отчёт">
+        //   <img src='/img/download.png'/>
+        // </button>
     return (
       <div className='workspace'>
         <div id='doctorgraph' ref={node => this.doctorgraph = node}></div>

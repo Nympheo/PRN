@@ -27,9 +27,6 @@ class Maingraph extends React.Component {
   // }
 
   prepareData(){
-    // console.log('prepareData');
-    // console.log(this.props.base);
-
     let updatedBase = this.props.base[0].work;
     let that = this;
 
@@ -52,11 +49,10 @@ class Maingraph extends React.Component {
    this.state.base = updatedBase;
    this.state.dataReady = true;
 
-    this.createAreaChart();
+    setTimeout(() => this.createAreaChart(), 1000);
   }
 
   createAreaChart() {
-     console.log('create main chart');
      let that = this;
 
      const margin = {top: 10, right: 35, bottom: 45, left: 35};
@@ -71,9 +67,6 @@ class Maingraph extends React.Component {
 
      const countMax = d3.max(this.state.base, e => e.data);
      let timeMax = d3.extent(this.props.base[0].work, e => new Date(e.date));
-     // timeMax = timeMax.map(e => new Date(e));
-    //  console.log(timeMax);
-    // console.log(timeMax[0] instanceof Date);
 
      const yScale = d3.scaleLinear()
         .domain([0, countMax + 100])
@@ -115,11 +108,11 @@ class Maingraph extends React.Component {
          .append('rect')
          .attr("transform", (d,i) => `translate(${i*barWidth+1},0)`)
            .on("mouseover", function(d) {
-             // d3.select(this)
-             //     .style({
-             //       'fill': 'rgb(184, 15, 15)',
-             //       'fill-opacity': 0.6
-             //     });
+             d3.select(this)
+                .transition()
+                .duration(500)
+                .attr('style', 'fill:red' );
+
                 tip.transition()
                     .duration(200)
                     .style("opacity", .9);
@@ -132,6 +125,10 @@ class Maingraph extends React.Component {
                 tip.transition()
                     .duration(400)
                     .style("opacity", 0);
+                d3.select(this)
+                   .transition()
+                   .duration(500)
+                   .attr('style', 'fill:#fe9922' );
             });
 
       svg.selectAll('rect')
@@ -149,8 +146,6 @@ class Maingraph extends React.Component {
 
 
   render() {
-    console.log('main render');
-
     if(Object.keys(this.props.base).length > 0 && !this.state.dataReady) this.prepareData();
 
     return (

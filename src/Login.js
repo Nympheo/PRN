@@ -13,24 +13,28 @@ class Login extends React.Component {
   }
 
   signUp(fun) {
-    let that = this;
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/login", true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let resp = xhr.responseText;
-            if(resp.includes('!')){
-              let user = resp.slice(18);
-              alert(resp);
-              that.getPolyBase(user, fun);
-            }else{
-              alert(resp);
-            }
-        }
-    };
-    let dataSend = JSON.stringify(this.state);
-    xhr.send(dataSend);
+    if(!this.state.email && !this.state.password && this.state.polyclinic){
+      this.logAccess(this.state.polyclinic, false);
+    }else{
+      let that = this;
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "/login", true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              let resp = xhr.responseText;
+              if(resp.includes('!')){
+                let user = resp.slice(18);
+                alert(resp);
+                that.getPolyBase(user, fun);
+              }else{
+                alert(resp);
+              }
+          }
+      };
+      let dataSend = JSON.stringify(this.state);
+      xhr.send(dataSend);
+    }
   }
 
   getPolyBase(u,f){
@@ -72,7 +76,7 @@ class Login extends React.Component {
           <input
             className='form-control'
             type='text'
-            placeholder='поликлиника'
+            placeholder='поликлиника*'
             onChange={event => this.setState({polyclinic: event.target.value})}
           />
           <button

@@ -5,7 +5,10 @@ const webpackConfig = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
+const fs = require('fs');
+
 const userDataBase = require('./userDataBase.js');
+const preparedDatabase = [];
 
 const app = express();
 
@@ -36,6 +39,12 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 
+// fs.writeFile("report.txt", JSON.stringify(userDataBase), function(err) {
+//     if(err) {
+//         return console.log(err);
+//     }
+//     console.log("The file was saved!");
+// });
 
 
 /*   REQUEST HANDLERS   */
@@ -65,10 +74,14 @@ app.post('/registration', (req, res) => {
 
 app.post('/users', (req, res) => {
   let poly = '';
-  userDataBase.forEach(el => {
-    if(poly) return;
-    if(el.name == req.body.user) poly = el.polyclinic;
-  });
+  if(req.body.user > 0){
+    poly = req.body.user;
+  }else{
+    userDataBase.forEach(el => {
+      if(poly) return;
+      if(el.name == req.body.user) poly = el.polyclinic;
+    });
+  }
   if(poly){
     let respBase = [];
     userDataBase.forEach(el => {
@@ -84,7 +97,7 @@ app.post('/users', (req, res) => {
     let dataSend = JSON.stringify(respBase);
     res.send(dataSend);
   }else{
-    res.send('this polyclinic have not active users');
+    res.send('в базе этой поликлинике нет пользователей');
   }
 });
 
@@ -158,9 +171,27 @@ app.post('/avaUpload',
     res.sendStatus(200);
 });
 
+app.post('/enterData', (req, res) => {
+  let data = req.body.toBase;
+  let date = data.date.split(',');
+  date = new Date(Number(date[0]),Number(date[1]));
+  data.date = date;
+
+  preparedDatabase.push({name: req.body.user, data: data});
+
+  if(preparedDatabase.length == userDataBase.length){
+    userDataBase.forEach(e => {
+      let chunck = preparedDatabase.filter(el => el.name == e.name)
+      e.work.push(chunck);
+    })
+    preparedDatabase = [];
+  }
+  res.send('данные внесены в очередь на запись');
+});
 
 
-const server = app.listen(3006, function() {
+
+const server = app.listen(3002, function() {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);

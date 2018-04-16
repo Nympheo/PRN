@@ -1,4 +1,6 @@
 import React from 'react';
+import Contribution from './Contribution';
+import DataEntry from './DataEntry';
 
 
 class Userroom extends React.Component {
@@ -113,14 +115,20 @@ class Userroom extends React.Component {
                                            prof={this.state.prof}
                                            bio={this.state.bio}
                                  />}
+        {this.props.host ? <DataEntry user={this.props.user}/>: <span></span>}
         </div>
         <div className='user-contribution'>
-
+          <Contribution base={this.props.base}
+                        user={this.state.user}/>
         </div>
      </div>
     )
   }
 }
+
+
+
+
 
 
 
@@ -151,6 +159,9 @@ class UserData extends React.Component {
     )
   }
 }
+
+
+
 
 
 
@@ -213,5 +224,9 @@ class EditUser extends React.Component {
      )
   }
 }
+
+
+
+
 
 export default Userroom;

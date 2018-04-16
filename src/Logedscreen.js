@@ -23,13 +23,16 @@ class Loggedscreen extends React.Component {
   }
 
   componentWillMount() {
-    window.addEventListener("beforeunload", function (e) {
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", "/offline", true);
-      xhr.setRequestHeader("Content-type", "application/json");
-      let dataSend = JSON.stringify({name: this.props.user});
-      xhr.send(dataSend);
-    });
+    // console.log(typeof this.props.user);
+    if(this.props.user.includes(' ')){
+      window.addEventListener("beforeunload", function (e) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/offline", true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        let dataSend = JSON.stringify({name: this.props.user});
+        xhr.send(dataSend);
+      });
+    }
     //----------------------
     let xhr = new XMLHttpRequest();
     let that = this;
@@ -43,21 +46,38 @@ class Loggedscreen extends React.Component {
             sortedUsers.map(e => {
               if(e.name == that.props.user) current = e;
             });
-            current.host = true;
-            sortedUsers = sortedUsers.filter(e => e.name != current.name);
-            sortedUsers.unshift(current);
-            let usersForRender = sortedUsers.map(function(el, i) {
-                return  (
-                        <Usermini onClick = {that.enterRoom}
-                                  user = {el.name}
-                                  prof = {el.prof}
-                                  online = {el.online}
-                                  key = {el.name}
-                                  ava = {el.ava}
-                                  host = {el.host ? el.host : ''}
-                        />
-                      )
-            });
+            let usersForRender;
+            if(current){
+              current.host = true;
+              sortedUsers = sortedUsers.filter(e => e.name != current.name);
+              sortedUsers.unshift(current);
+              usersForRender = sortedUsers.map(function(el, i) {
+                  return  (
+                          <Usermini onClick = {that.enterRoom}
+                                    user = {el.name}
+                                    prof = {el.prof}
+                                    online = {el.online}
+                                    key = {el.name}
+                                    ava = {el.ava}
+                                    host = {el.host ? el.host : ''}
+                                    className="withHost"
+                          />
+                        )
+              });
+            }else{
+              usersForRender = sortedUsers.map(function(el, i) {
+                  return  (
+                          <Usermini onClick = {that.enterRoom}
+                                    user = {el.name}
+                                    prof = {el.prof}
+                                    online = {el.online}
+                                    key = {el.name}
+                                    ava = {el.ava}
+                                    host = {el.host ? el.host : ''}
+                          />
+                        )
+              });
+            }
             that.setState(prevState => ({
               polyUsers: sortedUsers,
               polyUsersRender: usersForRender
@@ -104,22 +124,39 @@ class Loggedscreen extends React.Component {
             let base = JSON.parse(xhr.responseText);
             let sortedUsers = base.sort(compare); //!!!!
             let current;
+            let usersForRender;
             sortedUsers.map(e => {
               if(e.name == that.props.user) current = e;
             });
-            current.host = true;
-            sortedUsers = sortedUsers.filter(e => e.name != current.name);
-            sortedUsers.unshift(current);
-            let usersForRender = sortedUsers.map((el, i) =>
-                                  <Usermini onClick = {that.enterRoom}
-                                            user = {el.name}
-                                            prof = {el.prof}
-                                            online = {el.online}
-                                            key = {el.name}
-                                            ava = {el.ava}
-                                            host = {el.host ? el.host : ''}
-                                  />
-            );
+            if(current){
+              current.host = true;
+              sortedUsers = sortedUsers.filter(e => e.name != current.name);
+              sortedUsers.unshift(current);
+              usersForRender = sortedUsers.map((el, i) =>
+                                    <Usermini onClick = {that.enterRoom}
+                                              user = {el.name}
+                                              prof = {el.prof}
+                                              online = {el.online}
+                                              key = {el.name}
+                                              ava = {el.ava}
+                                              host = {el.host ? el.host : ''}
+                                              className="withHost"
+                                    />
+              );
+            }else{
+              usersForRender = sortedUsers.map((el, i) =>
+                                    <Usermini onClick = {that.enterRoom}
+                                              user = {el.name}
+                                              prof = {el.prof}
+                                              online = {el.online}
+                                              key = {el.name}
+                                              ava = {el.ava}
+                                              host = {el.host ? el.host : ''}
+                                    />
+              );
+            }
+
+
             that.setState(prevState => ({
               polyUsers: sortedUsers,
               polyUsersRender: usersForRender,
@@ -159,7 +196,8 @@ class Loggedscreen extends React.Component {
       <div className='logged-screen'>
         {this.state.entered ? <Userroom user={this.state.userRoom}
                                         host={this.state.host}
-                                        back = {this.toMainScreen}
+                                        back={this.toMainScreen}
+                                        base={this.state.polyUsers}
                               />
         : <div className='work'>
              <div className='users-wrap'>

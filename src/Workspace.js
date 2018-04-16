@@ -14,7 +14,6 @@ class Workspace extends React.Component {
   }
 
   selectData(d){
-    console.log('select data');
     // console.log(d.date instanceof Date);
     // console.log(this.props.base[0].work[0].date instanceof Date);
     // console.log(this.props.base[0].work[0].date == d.date);
@@ -38,7 +37,7 @@ class Workspace extends React.Component {
               {count: 0, color: 'rgb(233, 50, 50)'}];
     const dn = [{count: 0, color: 'rgb(237, 207, 46)'},
               {count: 0, color: 'rgb(233, 50, 50)'}];
-    const iv = [{count: 0, name: 'инвалидов'}, {count: 0, name: 'ветеранов'}];
+    const iv = [{count: 0, name: 'ветеранов'}, {count: 0, name: 'инвалидов'}];
 
     this.props.base.map(function(e){
       e.work.map(function(e2){
@@ -64,19 +63,25 @@ class Workspace extends React.Component {
 
 
   render() {
-    console.log('workspace render');
+    // <h4 id='title3'>из них</h4>
     return (
       <div>
               <div className='work-section'>
-              <h2>Данные о работе врачей поликлиники 22</h2>
+                <h2 className='mainTitle'>Данные о работе врачей поликлиники 22</h2>
                 <Maingraph base={this.props.base} select={this.selectData}/>
               </div>
               <div className='work-section'>
-              <h4 id='title2'>за месяц врачами</h4>
-              <h4 id='title3'>из них</h4>
+                <h4 className='enterTitle'>за месяц врачами</h4>
+                <h4 className='enterTitle'>из них</h4>
+
                 <Detailedgraph base={this.props.base}
                                selectDet={this.state.selectedDataDet}
                                selectProp={this.state.selectedDataProp}/>
+               <button onClick={this.handleChange} title="скачать отчёт">
+                <a href="/uploads/report.csv" download>
+                 <img src='/img/download.png'/>
+                </a>
+               </button>
               </div>
       </div>
     )
